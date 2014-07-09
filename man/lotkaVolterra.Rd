@@ -10,10 +10,9 @@
 }
 \details{Evaluates the derivative of the following coupled ODE system at the point (t, x, y):
 
-dx/dt = lambda*x - epsilon*x*y,
-dy/dt = eta*x*y - delta*y
+dx/dt = lambda*x - epsilon*x*y,   dy/dt = eta*x*y - delta*y.
 
-Format is designed to be compatible with ode from the deSolve package..}
+Format is designed to be compatible with ode from the deSolve package.}
 \value{Returns a list dy containing the values of the two derivatives at (t, x, y).}
 \author{Michael J. Grayling}
 \seealso{\code{\link{ode}}}

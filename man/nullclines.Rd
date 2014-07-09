@@ -1,9 +1,9 @@
 \name{nullclines}
 \alias{nullclines}
 \title{Nullclines}
-\description{Plots nullclines for two dimensional autonomous ODE systems. Or it can be used to plot horizontal lines at equilibrium points for one dimensional autonomous ODE systems.}
+\description{Plots nullclines for two dimensional autonomous ODE systems. Or can be used to plot horizontal lines at equilibrium points for one dimensional autonomous ODE systems.}
 \usage{nullclines(deriv, x.lim, y.lim, parameters = NULL, points = 101,
-           system = "two.dim", colour = c("red", "blue"), add = TRUE, ...)}
+                  system = "two.dim", colour = c("red", "blue"), add = TRUE, ...)}
 \arguments{
   \item{deriv}{A function computing the derivative at a point for the ODE system to be analysed. Discussion of the required structure of these functions can be found in the package guide.}
   \item{x.lim}{In the case of a two dimensional system, this sets the limits of the first dependent variable in which gradient reflecting line segments should be plotted. In the case of a one dimensional system, this sets the limits of the independent variable in which these line segments should be plotted. Should be a vector of length two.}
@@ -32,25 +32,25 @@
 \author{Michael J. Grayling}
 \note{In order to ensure a nullclines is plotted, set x.lim and y.lim strictly enclosing its location. For example, to ensure a nullcline is plotted along x = 0, set y.lim to e.g. begin at -1.}
 \seealso{\code{\link{contour}}, \code{\link{plot}}}
-\examples{# Plot the flow field, nullclines and several trajectories
-# for the one dimensional autonomous ODE system logistic.
+\examples{# Plot the flow field, nullclines and several trajectories for the one
+# dimensional autonomous ODE system logistic.
 logistic.flowField  <- flowField(logistic, x.lim = c(0, 5), y.lim = c(-1, 3),
-                       parameters = c(1, 2), points = 21, system = "one.dim",
-					   add = FALSE, xlab = "x", ylab = "y")
+                                 parameters = c(1, 2), points = 21, system = "one.dim",
+								 add = FALSE)
 logistic.nullclines <- nullclines(logistic, x.lim = c(0, 5), y.lim = c(-1, 3),
-                       parameters = c(1, 2), system = "one.dim")
-logistic.trajectory <- trajectory(logistic, y0 = c(-0.5, 0.5, 1.5, 2.5),
-                       t.end = 5, parameters = c(1, 2), system = "one.dim")
+                                  parameters = c(1, 2), system = "one.dim")
+logistic.trajectory <- trajectory(logistic, y0 = c(-0.5, 0.5, 1.5, 2.5), t.end = 5,
+                                  parameters = c(1, 2), system = "one.dim")
 
-# Plot the velocity field, nullclines and several trajectories for 
-# the two dimensional autonomous ODE system simplePendulum.
+# Plot the velocity field, nullclines and several trajectories for the two dimensional
+# autonomous ODE system simplePendulum.
 simplePendulum.flowField  <- flowField(simplePendulum, x.lim = c(-7, 7),
-                             y.lim = c(-7, 7), parameters = 5, points = 19,
-                             add = FALSE, xlab = "x", ylab = "y")
-y0                        <- matrix(c(0, 1, 0, 4, -6, 1, 5, 0.5, 0, -3),
-                             ncol = 2, nrow = 5, byrow = TRUE)
+                                       y.lim = c(-7, 7), parameters = 5, points = 19,
+									   add = FALSE)
+y0                        <- matrix(c(0, 1, 0, 4, -6, 1, 5, 0.5, 0, -3), ncol = 2,
+                                    nrow = 5, byrow = TRUE)
 simplePendulum.nullclines <- nullclines(simplePendulum, x.lim = c(-7, 7),
-                             y.lim = c(-7, 7), parameters = 5, points = 500)
+                                        y.lim = c(-7, 7), parameters = 5, points = 500)
 simplePendulum.trajectory <- trajectory(simplePendulum, y0 = y0, t.end = 10,
-                             parameters = 5, xlab = "x", ylab = "y")
+                                        parameters = 5)
 }

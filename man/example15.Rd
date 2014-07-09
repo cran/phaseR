@@ -10,8 +10,7 @@
 }
 \details{Evaluates the derivative of the following coupled ODE system at the point (t, x, y):
 
-dx/dt = x^2 - 3x*y + 2x,
-dy/dt = x + y -1
+dx/dt = x^2 - 3x*y + 2x,   dy/dt = x + y - 1.
 
 Format is designed to be compatible with ode from the deSolve package.}
 \value{Returns a list dy containing the values of the two derivatives at (t, x, y).}

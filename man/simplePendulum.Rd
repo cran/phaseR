@@ -10,8 +10,7 @@
 }
 \details{Evaluates the derivative of the following coupled ODE system at the point (t, x, y):
 
-dx/dt = y,
-dy/dt = -g*sin(x)/l
+dx/dt = y,   dy/dt = -g*sin(x)/l.
 
 Format is designed to be compatible with ode from the deSolve package.}
 \value{Returns a list dy containing the values of the two derivatives at (t, x, y).}
@@ -19,18 +18,18 @@ Format is designed to be compatible with ode from the deSolve package.}
 \seealso{\code{\link{ode}}}
 \examples{# Plot the velocity field, nullclines and several trajectories.
 simplePendulum.flowField  <- flowField(simplePendulum, x.lim = c(-7, 7),
-                             y.lim = c(-7, 7), parameters = 5, points = 19,
-                             add = FALSE, xlab = "x", ylab = "y")
-y0                        <- matrix(c(0, 1, 0, 4, -6, 1, 5, 0.5, 0, -3),
-                             ncol = 2, nrow = 5, byrow = TRUE)
+                                       y.lim = c(-7, 7), parameters = 5, points = 19,
+									   add = FALSE)
+y0                        <- matrix(c(0, 1, 0, 4, -6, 1, 5, 0.5, 0, -3), ncol = 2,
+                                    nrow = 5, byrow = TRUE)
 simplePendulum.nullclines <- nullclines(simplePendulum, x.lim = c(-7, 7),
-                             y.lim = c(-7, 7), parameters = 5, points = 500)
+                                        y.lim = c(-7, 7), parameters = 5, points = 500)
 simplePendulum.trajectory <- trajectory(simplePendulum, y0 = y0, t.end = 10,
-                             parameters = 5, xlab = "x", ylab = "y")
+                                        parameters = 5)
 
 # Determine the stability of two of the equilibrium points.
 simplePendulum.stability.1 <- stability(simplePendulum, y.star = c(0, 0),
-                              parameters = 5)
+                                        parameters = 5)
 simplePendulum.stability.2 <- stability(simplePendulum, y.star = c(pi, 0),
-                              parameters = 5)
+                                        parameters = 5)
 }

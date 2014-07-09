@@ -10,8 +10,7 @@
 }
 \details{Evaluates the derivative of the following coupled ODE system at the point (t, x, y):
 
-dx/dt = -beta*x*y,
-dy/dt = beta*x*y - nu*y
+dx/dt = -beta*x*y,   dy/dt = beta*x*y - nu*y.
 
 Format is designed to be compatible with ode from the deSolve package.}
 \value{Returns a list dy containing the values of the two derivatives at (t, x, y).}

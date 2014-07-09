@@ -1,7 +1,7 @@
-stability <-
-function(deriv, y.star = NULL, parameters = NULL, system = "two.dim", h = 1e-7, summary = "yes"){
-  if ((system != "two.dim") & (system != "one.dim")){
-    stop(paste("system must either be set to one.dim or two.dim"))
+stability <- function(deriv, y.star = NULL, parameters = NULL,
+                      system = "two.dim", h = 1e-07, summary = TRUE){
+  if (!(system %in% c("one.dim", "two.dim"))){
+    stop("system must either be set to one.dim or two.dim")
   }
   if (is.null(y.star)){
     y.star <- locator(n = 1)
@@ -13,10 +13,10 @@ function(deriv, y.star = NULL, parameters = NULL, system = "two.dim", h = 1e-7, 
     }
   }
   if (h <= 0){
-    stop(paste("h is less than or equal to zero"))
+    stop("h is less than or equal to zero")
   }
-  if ((summary != "yes") & (summary != "no")){
-    stop(paste("summary must either be set to yes or no"))
+  if (!is.logical(summary)){
+    stop("summary must either be set to TRUE or FALSE")
   }
   if (system == "one.dim"){
     discriminant <- as.numeric(deriv(0, y.star + h, parameters = parameters))/h
@@ -31,19 +31,21 @@ function(deriv, y.star = NULL, parameters = NULL, system = "two.dim", h = 1e-7, 
     }
   }
   if (system == "two.dim"){
-    df  <- deriv(t = 0, y = y.star, parameters = parameters)
-    dfx <- deriv(t = 0, y = c(y.star[1] + h, y.star[2]), parameters = parameters)
-    dfy <- deriv(t = 0, y = c(y.star[1], y.star[2] + h), parameters = parameters)
-    A   <- (as.numeric(dfx[[1]][1]) - as.numeric(df[[1]][1]))/h
-    B   <- (as.numeric(dfy[[1]][1]) - as.numeric(df[[1]][1]))/h
-    C   <- (as.numeric(dfx[[1]][2]) - as.numeric(df[[1]][2]))/h
-    D   <- (as.numeric(dfy[[1]][2]) - as.numeric(df[[1]][2]))/h
-    Delta        <- A*D - B*C
-    tr           <- A + D
+    df <- deriv(t = 0, y = y.star, parameters = parameters)
+    dfx <- deriv(t = 0, y = c(y.star[1] + h, y.star[2]), 
+                 parameters = parameters)
+    dfy <- deriv(t = 0, y = c(y.star[1], y.star[2] + h), 
+                 parameters = parameters)
+    A <- (as.numeric(dfx[[1]][1]) - as.numeric(df[[1]][1]))/h
+    B <- (as.numeric(dfy[[1]][1]) - as.numeric(df[[1]][1]))/h
+    C <- (as.numeric(dfx[[1]][2]) - as.numeric(df[[1]][2]))/h
+    D <- (as.numeric(dfy[[1]][2]) - as.numeric(df[[1]][2]))/h
+    Delta <- A*D - B*C
+    tr <- A + D
     discriminant <- tr^2 - 4*Delta
-    jacobian     <- matrix(c(A, B, C, D), ncol = 2, nrow = 2, byrow = TRUE)
-    eigen        <- eigen(jacobian)
-    eigenvalues  <- eigen$values
+    jacobian <- matrix(c(A, B, C, D), 2, 2, byrow = TRUE)
+    eigen <- eigen(jacobian)
+    eigenvalues <- eigen$values
     eigenvectors <- eigen$vectors
     if (Delta < 0){
       classification <- "Saddle"
@@ -61,7 +63,7 @@ function(deriv, y.star = NULL, parameters = NULL, system = "two.dim", h = 1e-7, 
         }
       }
       if (discriminant < 0){
-        if (tr < 0){
+        if (tr < 0) {
           classification <- "Stable focus"
         }
         if (tr > 0){
@@ -73,13 +75,15 @@ function(deriv, y.star = NULL, parameters = NULL, system = "two.dim", h = 1e-7, 
       }
     }
   }
-  if (summary == "yes"){
+  if (summary == TRUE){
     if (system == "one.dim"){
-	  cat('Discriminant:', discriminant, '  Classification:', classification)
-	}
-	if (system == "two.dim"){
-	  cat('T:', tr, '  Delta:', Delta, '  Discriminant:', discriminant, '  Classification:', classification)
-	}
+      cat("\nDiscriminant:", discriminant, "  Classification:", 
+          classification)
+    }
+    if (system == "two.dim"){
+      cat("\nT:", tr, "  Delta:", Delta, "  Discriminant:", 
+        discriminant, "  Classification:", classification)
+    }
   }
   output                <- list()
   output$classification <- classification
@@ -101,6 +105,6 @@ function(deriv, y.star = NULL, parameters = NULL, system = "two.dim", h = 1e-7, 
   if (system == "two.dim"){
     output$tr           <- tr
   }
-  output$y.star             <- y.star
+  output$y.star         <- y.star
   return(output)
 }

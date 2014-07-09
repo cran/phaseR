@@ -10,8 +10,7 @@
 }
 \details{Evaluates the derivative of the following coupled ODE system at the point (t, x, y):
 
-dx/dt = r1*x*(K1 - x - alpha12*y)/K1,
-dy/dt = r2*x*(K2 - x - alpha21*y)/K2
+dx/dt = r1*x*(K1 - x - alpha12*y)/K1,   dy/dt = r2*x*(K2 - x - alpha21*y)/K2.
 
 Format is designed to be compatible with ode from the deSolve package.}
 \value{Returns a list dy containing the values of the two derivatives at (t, x, y).}

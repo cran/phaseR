@@ -1,10 +1,9 @@
 \name{numericalSolution}
 \alias{numericalSolution}
 \title{Numerical Solution and Plotting}
-\description{Numerically solves a two dimensional autonomous ODE system for a given initial condition. It then plots the dependent variables against the independent variable.}
-\usage{numericalSolution(deriv, y0, t.start = 0, t.end, t.step = 0.01,
-                  parameters = NULL, type = "two", colour = rep("black", 2),
-                  grid = "yes", ...)}
+\description{Numerically solves a two dimensional autonomous ODE system for a given initial condition, using ode from the package deSolve. It then plots the dependent variables against the independent variable.}
+\usage{numericalSolution(deriv, y0, t.start = 0, t.end, t.step = 0.01, parameters = NULL,
+                         type = "two", colour = rep("black", 2), grid = TRUE, ...)}
 \arguments{
   \item{deriv}{A function computing the derivative at a point for the ODE system to be analysed. Discussion of the required structure of these functions can be found in the package guide.}
   \item{y0}{The initial condition. Should be a vector of length two reflecting the location of the two dependent variables initially.}
@@ -14,7 +13,7 @@
   \item{parameters}{Parameters of the ODE system, to be passed to deriv. Supplied as a vector; the order of the parameters can be found from the deriv file. Defaults to NULL.}
   \item{type}{If set to "one" the trajectories are plotted on the same graph. If set to "two" they are plotted on separate graphs. Defaults to "two".}
   \item{colour}{Sets the colours of the trajectories of the two dependent variables. Will be reset accordingly if it is not a vector of length two. Defaults to rep("black", 2).}
-  \item{grid}{If set to "yes" grids are added to the plots. If set to "no", grids are not added. Defaults to "yes".}
+  \item{grid}{If set to TRUE grids are added to the plots. If set to FALSE, grids are not added. Defaults to TRUE.}
   \item{\dots}{Additional arguments to be passed to plot.}
 }
 \value{Returns a list with the following components:
@@ -31,6 +30,6 @@
 \author{Michael J. Grayling}
 \seealso{\code{\link{ode}}, \code{\link{plot}}}
 \examples{# A two dimensional autonomous ODE system, vanDerPol.
-vanDerPol.numericalSolution <- numericalSolution(vanDerPol, y0 = c(4, 2),
-                               t.end = 100, parameters = 3)
+vanDerPol.numericalSolution <- numericalSolution(vanDerPol, y0 = c(4, 2), t.end = 100,
+                                                 parameters = 3)
 }

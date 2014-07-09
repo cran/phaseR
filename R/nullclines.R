@@ -1,40 +1,41 @@
-nullclines <-
-function(deriv, x.lim, y.lim, parameters = NULL, points = 101, system = "two.dim", colour = c("red", "blue"), add = TRUE, ...){
+nullclines <- function(deriv, x.lim, y.lim, parameters = NULL, points = 101, 
+                       system = "two.dim", colour = c("red", "blue"),
+					   add = TRUE, ...){
   if ((is.vector(x.lim) == FALSE) | (length(x.lim) != 2)){
-    stop(paste("x.lim is not a vector of length 2 as required"))
+    stop("x.lim is not a vector of length 2 as required")
   }
   if (x.lim[2] <= x.lim[1]){
-    stop(paste("x.lim[2]  is less than or equal to x.lim[1]"))
+    stop("x.lim[2]  is less than or equal to x.lim[1]")
   }
   if ((is.vector(y.lim) == FALSE) | (length(y.lim) != 2)){
-      stop(paste("y.lim is not a vector of length 2 as required"))
+    stop("y.lim is not a vector of length 2 as required")
   }
   if (y.lim[2] <= y.lim[1]){
-    stop(paste("y.lim[2]  is less than or equal to y.lim[1]"))
+    stop("y.lim[2]  is less than or equal to y.lim[1]")
   }
   if (points <= 0){
-    stop(paste("points is less than or equal to zero"))
+    stop("points is less than or equal to zero")
   }
-  if ((system != "two.dim") & (system != "one.dim")){
-    stop(paste("system must either be set to one.dim or two.dim"))
+  if (!(system %in% c("one.dim", "two.dim"))){
+    stop("system must either be set to one.dim or two.dim")
   }
-  if (is.vector(colour) == FALSE){
-    stop(paste("colour is not a vector as required"))
+  if (!is.vector(colour)){
+    stop("colour is not a vector as required")
   }
   if (length(colour) != 2){
     if (length(colour) == 1){
       colour <- rep(colour, 2)
     }
-    if(length(colour) > 2){
+    if (length(colour) > 2){
       colour <- colour[1:2]
     }
-    warning("colour has been reset as required")
+    print("Note: colour has been reset as required")
   }
-  if (is.logical(add) == FALSE){
-    stop(paste("add must be logical"))
+  if (!is.logical(add)){
+    stop("add must be logical")
   }
-  x  <- seq(from = x.lim[1], to = x.lim[2], length = points)
-  y  <- seq(from = y.lim[1], to = y.lim[2], length = points)
+  x <- seq(from = x.lim[1], to = x.lim[2], length = points)
+  y <- seq(from = y.lim[1], to = y.lim[2], length = points)
   dx <- matrix(0, ncol = points, nrow = points)
   dy <- matrix(0, ncol = points, nrow = points)
   if (system == "two.dim"){
@@ -45,8 +46,10 @@ function(deriv, x.lim, y.lim, parameters = NULL, points = 101, system = "two.dim
         dy[i, j] <- df[[1]][2]
       }
     }
-    contour(x, y, dx, levels = 0, add = add, col = colour[1], drawlabels = FALSE, ...)
-    contour(x, y, dy, levels = 0, add = TRUE, col = colour[2], drawlabels = FALSE, ...)
+    contour(x, y, dx, levels = 0, add = add, col = colour[1], 
+            drawlabels = FALSE, ...)
+    contour(x, y, dy, levels = 0, add = TRUE, col = colour[2], 
+            drawlabels = FALSE, ...)
   }
   if (system == "one.dim"){
     for (i in 1:length(y)){
@@ -55,13 +58,14 @@ function(deriv, x.lim, y.lim, parameters = NULL, points = 101, system = "two.dim
     for (i in 2:length(x)){
       dy[i, ] <- dy[1, ]
     }
-    contour(x, y, dy, levels = 0, add = add, col = colour[1], drawlabels = FALSE, ...)
+    contour(x, y, dy, levels = 0, add = add, col = colour[1], 
+            drawlabels = FALSE, ...)
   }
   output            <- list()
   output$colour     <- colour
   output$deriv      <- deriv
   if (system == "two.dim"){
-    output$dx       <- dx
+    output$dx     <- dx
   }
   output$dy         <- dy
   output$parameters <- parameters

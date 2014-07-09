@@ -10,23 +10,20 @@
 }
 \details{Evaluates the derivative of the following coupled ODE system at the point (t, x, y):
 
-dx/dt = x - y,
-dy/dt = x^2 + y^2 - 2
+dx/dt = x - y,   dy/dt = x^2 + y^2 - 2.
 
 Format is designed to be compatible with ode from the deSolve package.}
 \value{Returns a list dy containing the values of the two derivatives at (t, x, y).}
 \author{Michael J. Grayling}
 \seealso{\code{\link{ode}}}
 \examples{# Plot the velocity field, nullclines and several trajectories.
-example12.flowField  <- flowField(example12, x.lim = c(-4, 4),
-						y.lim = c(-4, 4), points = 17, add = FALSE,
-                        xlab = "x", ylab = "y")
-y0                   <- matrix(c(2, 2, -3, 0, 0, 2, 0, -3), ncol = 2,
-                        nrow = 4, byrow = TRUE)
-example12.nullclines <- nullclines(example12, x.lim = c(-4, 4),
-                        y.lim = c(-4, 4), points = 200)
-example12.trajectory <- trajectory(example12, y0 = y0, t.end = 10,
-                        xlab = "x", ylab = "y")
+example12.flowField <- flowField(example12, x.lim = c(-4, 4), y.lim = c(-4, 4),
+                                 points = 17, add = FALSE)
+y0                   <- matrix(c(2, 2, -3, 0, 0, 2, 0, -3), ncol = 2, nrow = 4,
+                               byrow = TRUE)
+example12.nullclines <- nullclines(example12, x.lim = c(-4, 4), y.lim = c(-4, 4),
+                                   points = 200)
+example12.trajectory <- trajectory(example12, y0 = y0, t.end = 10)
 
 # Determine the stability of the equilibrium points.
 example12.stability.1 <- stability(example12, y.star = c(1, 1))

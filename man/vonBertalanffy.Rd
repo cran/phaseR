@@ -10,7 +10,7 @@
 }
 \details{Evaluates the derivative of the following ODE at the point (t, y):
 
-dy/dt = alpha*y^(2/3) - beta*y
+dy/dt = alpha*y^(2/3) - beta*y.
 
 Format is designed to be compatible with ode from the deSolve package.}
 \value{Returns a list dy containing the value of the derivative at (t, y).}

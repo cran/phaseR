@@ -10,29 +10,28 @@
 }
 \details{Evaluates the derivative of the following ODE at the point (t, y):
 
-dy/dt = beta*y*(1 - y/K)
+dy/dt = beta*y*(1 - y/K).
 
 Format is designed to be compatible with ode from the deSolve package.}
 \value{Returns a list dy containing the value of the derivative at (t, y).}
 \author{Michael J. Grayling}
 \seealso{\code{\link{ode}}}
 \examples{# Plot the velocity field, nullclines and several trajectories.
-logistic.flowField <- flowField(logistic, x.lim = c(0, 5), y.lim = c(-1, 3),
-                      parameters = c(1, 2), points = 21, system = "one.dim",
-                      add = FALSE, xlab = "t", ylab = "y")
+logistic.flowField  <- flowField(logistic, x.lim = c(0, 5), y.lim = c(-1, 3),
+                                 parameters = c(1, 2), points = 21, system = "one.dim",
+								 add = FALSE)
 logistic.nullclines <- nullclines(logistic, x.lim = c(0, 5), y.lim = c(-1, 3),
-                       parameters = c(1, 2), system = "one.dim")
-logistic.trajectory <- trajectory(logistic, y0 = c(-0.5, 0.5, 1.5, 2.5),
-                       t.end = 5, parameters = c(1, 2), system = "one.dim")
+                                  parameters = c(1, 2), system = "one.dim")
+logistic.trajectory <- trajectory(logistic, y0 = c(-0.5, 0.5, 1.5, 2.5), t.end = 5,
+                                  parameters = c(1, 2), system = "one.dim")
 
 # Plot the phase portrait.
 logistic.phasePortrait <- phasePortrait(logistic, y.lim = c(-0.5, 2.5),
-                          parameters = c(1, 2), points = 10, frac = 0.5,
-                          xlab = "y", ylab = "f(y)")
+                                        parameters = c(1, 2), points = 10, frac = 0.5)
 
 # Determine the stability of the equilibrium points.
 logistic.stability.1 <- stability(logistic, y.star = 0, parameters = c(1, 2),
-                        system = "one.dim")
+                                  system = "one.dim")
 logistic.stability.2 <- stability(logistic, y.star = 2, parameters = c(1, 2),
-                        system = "one.dim")
+                                  system = "one.dim")
 }

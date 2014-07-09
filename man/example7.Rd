@@ -10,8 +10,7 @@
 }
 \details{Evaluates the derivatives of the following coupled ODE system at the point (t, x, y):
 
-dx/dt = -x - y,
-dy/dt = 4*x + y
+dx/dt = -x - y,   dy/dt = 4*x + y.
 
 Format is designed to be compatible with ode from the deSolve package.}
 \value{Returns a list dy containing the value of the derivatives at (t, x, y).}

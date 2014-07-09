@@ -2,15 +2,15 @@
 \alias{trajectory}
 \title{Phase Plane Trajectory Plotting}
 \description{Performs numerical integration of the chosen ODE system, for a user specifiable range of initial conditions. Plots the resulting solution in the phase plane.}
-\usage{trajectory(deriv, y0 = NULL, n = NULL, t.start = 0,
-           t.end, t.step = 0.01, parameters = NULL,
-           system = "two.dim", colour = "black", add = TRUE, ...)}
+\usage{trajectory(deriv, y0 = NULL, n = NULL, t.start = 0, t.end, t.step = 0.01,
+                  parameters = NULL, system = "two.dim", colour = "black",
+				  add = TRUE, ...)}
 \arguments{
   \item{deriv}{A function computing the derivative at a point for the ODE system to be analysed. Discussion of the required structure of these functions can be found in the package guide.}
   \item{y0}{The initial condition(s). In the case of a one dimensional system, this can either be a single number indicating the location of the dependent variable initially, or a vector indicating multiple initial locations of the independent variable. In the case of a two dimensional system, this can either be a vector of length two reflecting the location of the two dependent variables initially. Or it can be matrix where each row reflects a different initial condition. Alternatively this can be left blank and the user can use locator to specify initial condition(s) on a plot. In this case, for one dimensional systems, all initial conditions are taken at t.start, even if not selected so on the graph. Defaults to NULL.}
   \item{n}{If y0 is left NULL so initial conditions can be specified using locator, n sets the number of initial conditions to be chosen. Defaults to NULL.}
   \item{t.start}{The value of the independent variable to begin the numerical integration at. Defaults to 0.}
-  \item{t.end}{The value of the independent variable to end numerical integration at. Decreasing t.step theoretically makes the numerical integration more accurate, but increases computation time. Defaults to 0.01.}
+  \item{t.end}{The value of the independent variable to end numerical integration at.}
   \item{t.step}{The step length of the independent variable, used in numerical integration. Decreasing t.step theoretically makes the numerical integration more accurate, but increases computation time. Defaults to 0.01.}
   \item{parameters}{Parameters of the ODE system, to be passed to deriv. Supplied as a vector; the order of the parameters can be found from the deriv file. Defaults to NULL.}
   \item{system}{Set to either "one.dim" or "two.dim" to indicate the type of system being analysed. Defaults to "two.dim".}
@@ -35,25 +35,25 @@
 }
 \author{Michael J. Grayling}
 \seealso{\code{\link{ode}}, \code{\link{plot}}}
-\examples{# Plot the flow field, nullclines and several trajectories
-# for the one dimensional autonomous ODE system logistic.
+\examples{# Plot the flow field, nullclines and several trajectories for the one
+# dimensional autonomous ODE system logistic.
 logistic.flowField <- flowField(logistic, x.lim = c(0, 5), y.lim = c(-1, 3),
-                      parameters = c(1, 2), points = 21, system = "one.dim",
-                      add = FALSE, xlab = "x", ylab = "y")
+                                parameters = c(1, 2), points = 21, system = "one.dim",
+								add = FALSE)
 logistic.nullclines <- nullclines(logistic, x.lim = c(0, 5), y.lim = c(-1, 3),
-                       parameters = c(1, 2), system = "one.dim")
-logistic.trajectory <- trajectory(logistic, y0 = c(-0.5, 0.5, 1.5, 2.5),
-                       t.end = 5, parameters = c(1, 2), system = "one.dim")
+                                  parameters = c(1, 2), system = "one.dim")
+logistic.trajectory <- trajectory(logistic, y0 = c(-0.5, 0.5, 1.5, 2.5), t.end = 5,
+                                  parameters = c(1, 2), system = "one.dim")
 
-# Plot the velocity field, nullclines and several trajectories
-# for the two dimensional autonomous ODE system simplePendulum.
+# Plot the velocity field, nullclines and several trajectories for the two dimensional
+# autonomous ODE system simplePendulum.
 simplePendulum.flowField  <- flowField(simplePendulum, x.lim = c(-7, 7),
-                             y.lim = c(-7, 7), parameters = 5, points = 19,
-                             add = FALSE, xlab = "x", ylab = "y")
-y0                        <- matrix(c(0, 1, 0, 4, -6, 1, 5, 0.5, 0, -3),
-                             ncol = 2, nrow = 5, byrow = TRUE)
+                                       y.lim = c(-7, 7), parameters = 5, points = 19,
+									   add = FALSE)
+y0                        <- matrix(c(0, 1, 0, 4, -6, 1, 5, 0.5, 0, -3), ncol = 2,
+                                    nrow = 5, byrow = TRUE)
 simplePendulum.nullclines <- nullclines(simplePendulum, x.lim = c(-7, 7),
-                             y.lim = c(-7, 7), parameters = 5, points = 500)
+                                        y.lim = c(-7, 7), parameters = 5, points = 500)
 simplePendulum.trajectory <- trajectory(simplePendulum, y0 = y0, t.end = 10,
-                             parameters = 5, xlab = "x", ylab = "y")
+                                        parameters = 5)
 }
