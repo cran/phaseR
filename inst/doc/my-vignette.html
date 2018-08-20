@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Michael J Grayling" />
+
+<meta name="date" content="2018-08-20" />
+
+<title>phaseR: 2.0</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">phaseR: 2.0</h1>
+<h4 class="author"><em>Michael J Grayling</em></h4>
+<h4 class="date"><em>2018-08-20</em></h4>
+
+
+
+<p><strong>phaseR</strong> is an R package for the qualitative analysis of one and two dimensional autonomous ODE systems, using phase plane methods. Programs are available to identify and classify equilibrium points, plot the direction field, and plot trajectories for multiple initial conditions. In the one dimensional case, a program is also available to plot the phase portrait. Whilst in the two dimensional case, additionally programs are available to plot nullclines and the stable/unstable manifolds of saddle points. Many example systems are provided for the user.</p>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>Contrary to what may seem to be the case when you first encounter ordinary differential equations (ODEs), the majority of ODE systems cannot be solved analytically. In this case, there is usually no option but to resort to numerical solution, often through the assistance of a computer. However, for certain classes of ODE systems it is possible to undertake a qualitative examination using phase plane methods, as introduced by Henry Poincare, amongst others, in the 19th Century. These methods allow the analyser to circumvent the need for explicit solutions, via a highly graphical approach. Indeed, this qualitative analysis can in fact be useful even when the system can be solved analytically. Specifically, it is usually possible to plot trajectories for various initial conditions, before obtaining information about stability and other motion patterns of the system.</p>
+<p>This package, <strong>phaseR</strong>, allows the user to perform such analyses for one and two dimensional autonomous ODE systems. Programs are available to determine and classify equilibrium points, plot the flow or vector field, and plot trajectories for multiple initial conditions. In the one variable case, a program is also available to plot the phase portrait. Whilst in the two variable case, additionally programs are available to plot nullclines and the stable/unstable manifolds of saddle points. This accompanying guide has been written not only to provide further information on how to use <strong>phaseR</strong>, but also as a teaching utility for phase plane methods. In this way, <strong>phaseR</strong> can hopefully serve as a package for both independent learning, and for group based teaching; assisting lecturers in explaining the herein techniques.</p>
+<p>Thus, since it is an important skill to be able to perform phase plane analysis by hand, and as a background to the package, this guide will proceed by introducing mathematically the systems that it can examine and the techniques for analysis. The level of mathematics is most akin to a first year undergraduate mathematics course, however it should also be useful to those from natural science and engineering backgrounds as well. Following this, an explanation of the usage of the programs in <strong>phaseR</strong> will be given. For this, good knowledge of R is useful, but the programs are not difficult to use. Examples will then be provided for both one and two dimensional systems. Further example systems available in the package will be described, before finally, exercises are provided for the user to undertake should they wish. Solutions to these exercises are provided in a separate pdf. Throughout, to make things simpler, we will stick to using the letters <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> and <span class="math inline">\(t\)</span> only as variables, as these are the variable names used by the programs. In practice however, it is obviously not difficult to deal with cases where alternative notation is used.</p>
+<p>Acknowledgment goes to Professors Daniel Kaplan and Daniel Flath at Macalester College who established the initial code for phase plane analysis of two dimensional systems (<a href="http://www.macalester.edu/~kaplan/math135/pplane.pdf" class="uri">http://www.macalester.edu/~kaplan/math135/pplane.pdf</a>) upon which this package was based. Additionally, I would like to thank Stephen Ellner and John Guckenheimer who graciously provided code which allowed the creation of the <code>findEquilibrium()</code>, <code>drawManifolds()</code> and <code>phasePlaneAnalyser()</code> functions. I welcome any corrections or comments on both the programs and these notes.</p>
+</div>
+<div id="first-order-dynamical-systems-in-one-dimension" class="section level2">
+<h2>First order dynamical systems in one dimension</h2>
+<div id="autonomous-ordinary-differential-equations-in-one-dimension" class="section level4">
+<h4>Autonomous ordinary differential equations in one dimension</h4>
+<p>A first order dynamical system of one variable, <span class="math inline">\(y(t)\)</span> say, can be written in the following form</p>
+<p><span class="math display">\[ \frac{dy}{dt}=f(y,t). \]</span></p>
+<p>In many cases (usually the ones found in introductory calculus texts) this ODE can be solved analytically; with several techniques, such as integrating factors and separation of variables, at hand to help. However, more often than not, when a differential equation is written down to describe a real life system, it cannot be solved analytically. This is particularly true of non-linear ODEs, for which numerical solution would frequently have to be utilised. As a result, many computer packages are today available for numerical integration.</p>
+<p>However, an alternative approach to numerical integration is sometimes possible. This approach is usually termed the phase plane method, or phase plane analysis. This methodology is concerned with determining qualitative features of the solutions to ODEs, without the need for explicit solution. Whilst such analysis may be more germane to systems we cannot solve analytically, the methods are just as valid to systems we can.</p>
+<p>Although this qualitative analysis is indeed possible for ODEs of the type above, in this package we restrict ourselves slightly to the case of ‘autonomous ODEs’, for reasons that should hopefully become clear later. This class of first order ODEs can be written in the following form:</p>
+<p><span class="math display">\[ \frac{dy}{dt}=f(y), \]</span></p>
+<p>i.e., it is the case of no dependence upon the independent variable <span class="math inline">\(t\)</span> in the functional form of <span class="math inline">\(f\)</span>. Moreover, technically, we also assume that <span class="math inline">\(f\)</span> is a continuous, differentiable function. However, this is rarely an important point in what follows. Whilst this may seem a strong restriction, many real life models can be written in this form.</p>
+<p>Now, within this framework of qualitative analysis there are several important concepts that we will proceed to discuss. Namely; the flow field, equilibrium points, and the phase portrait.</p>
+</div>
+<div id="the-flow-field" class="section level4">
+<h4>The flow field</h4>
+<p>We begin with a discussion of the flow, or direction, field. Consider again the autonomous ODE above, and imagine making a sketch in the <span class="math inline">\(t\)</span>-<span class="math inline">\(y\)</span> plane by drawing at every point <span class="math inline">\((t,y)\)</span> a small line of slope <span class="math inline">\(f(y)\)</span>. This resulting picture of many line segments is the flow field. The use of such a picture lies in that solution curves to the ODE must be tangent to the directions of the line segments. Thus we can construct approximate graphical solutions to this ODE system by beginning at any point <span class="math inline">\((0,y_0)\)</span> (i.e., <span class="math inline">\(y(0)=y_0\)</span>) and sketching a curve that proceeds through the plane in the direction of the flow field. In this way, if we start at many different initial points, we can generate a family of solution curves that qualitatively describe the behaviour specified by the ODE.</p>
+<p>It is important to note however, that whilst the flow field method is incredibly useful for plotting trajectories by hand, it is an approximate method. Since we can only plot a finite number of line segments some approximation will always be introduced. Usually however, solutions accurate enough to gain a reasonable understanding of the ODE can be achieved, and in general, the more line segments we plot the more accurate our sketches will be. By hand this can be time consuming, utilising a computer however, it is not so difficult.</p>
+<p>Some texts on phase plane methods would here discuss the concept of isoclines, defined as lines across which <span class="math inline">\(dy/dt\)</span> is constant, i.e.</p>
+<p><span class="math display">\[ f(y)=\alpha,\]</span></p>
+<p>for different values of <span class="math inline">\(\alpha\)</span>. These lines are used in the same manner as the small line segments of the flow field, since we know the angle at which solution curves should cut them. They however are more useful in the setting of non-autonomous ODEs, and thus we will make little further mention of them.</p>
+<p>Additionally, some texts advise to plot the line segments at lengths reflecting the rate of change of <span class="math inline">\(y\)</span>. However, by hand this will almost always be a very laborious task, whilst even with a computer if <span class="math inline">\(f(y)\)</span> takes a large range of values the resulting plot can become somewhat uninformative with obscuring arrows of great length, and other arrows of length too short to be useful. Thus, it is usually best to plot all line segments at some small arbitrary length.</p>
+<p>As is often the case in mathematics, concepts can be more easily understood through an example. As such, consider now the ODE:</p>
+<p><span class="math display">\[ \frac{dy}{dt}=4-y^2, \]</span></p>
+<p>provided in the package as <code>example1()</code>. More information will be provided later on how to utilise the programs in <strong>phaseR</strong>, as well as how to specify your own systems. For now though simply note the flow field produced below, and the multiple trajectories that follow it:</p>
+</div>
+<div id="equilibrium-points-and-stability" class="section level4">
+<h4>Equilibrium points and stability</h4>
+<p>We now turn our attention to the so-called equilibrium points of our autonomous ODE. These points are defined by the locations where:</p>
+<p><span class="math display">\[ f(y)=0. \]</span></p>
+<p>It is easy to understand why they are termed equilibrium points. Beginning at a point <span class="math inline">\(y_*\)</span> where <span class="math inline">\(f(y_*)=0\)</span>, the system if unperturbed will remain at <span class="math inline">\(y_*\)</span> throughout its evolution. Their great importance lies in determining the long term behaviour of the ODE.</p>
+<p>Considering our example ODE <span class="math inline">\(dy/dt=4-y^2\)</span> again, it is a simple matter to find its equilibrium points:</p>
+<p><span class="math display">\[ f(y_*)=0 \Rightarrow 4-y_*^2=0 \Rightarrow (2-y_*)(2+y_*)=0 \Rightarrow y_*=-2,2.\]</span></p>
+<p>For the equilibrium points however, just as much as we are interested in their location, we are interested in whether they are stable or unstable. Here, informally, being stable means that if the system is placed a small distance away from the equilibrium point, it will remain close to this equilibrium point. Whilst being unstable means a small perturbation away from the equilibrium point causes the solution to diverge large distances away. More precisely, the definition of stability can be stated as:</p>
+<p>if for every <span class="math inline">\(\epsilon&gt;0\)</span>, there exists <span class="math inline">\(\delta&gt;0\)</span> such that whenever <span class="math inline">\(|y(0)-y_*|&lt;\delta\)</span> then <span class="math inline">\(|y(t)-y_*|&lt;\epsilon\)</span> for all <span class="math inline">\(t\)</span></p>
+<p>Classically, to determine the stability of any located equilibrium points, we have two options. The first method is the phase portrait. Indeed, our earlier decision to restrict our attention to autonomous systems was motivated by the condition required for phase portrait analysis: when we remove time dependence from our systems evolution, it allows us to collapse our qualitative analysis from the <span class="math inline">\(t\)</span>-<span class="math inline">\(y\)</span> plane to simply considering how <span class="math inline">\(f(y)\)</span> varies with <span class="math inline">\(y\)</span>.</p>
+<p>So, in phase portrait analysis, we first plot <span class="math inline">\(f(y)\)</span> against <span class="math inline">\(y\)</span>. From the definition of our autonomous ODE it should be easy to see that whenever <span class="math inline">\(f(y)&gt;0\)</span>, <span class="math inline">\(y\)</span> will increase. Whilst whenever <span class="math inline">\(f(y)&lt;0\)</span>, <span class="math inline">\(y\)</span> will decrease. Moreover, the locations where <span class="math inline">\(f(y)\)</span> cross the <span class="math inline">\(y\)</span>-axis are exactly the equilibrium points (thus this plot can be useful for locating equilibrium points). Therefore, we can represent the evolution of <span class="math inline">\(y\)</span> in this plot by simply placing arrows along the <span class="math inline">\(y\)</span>-axis indicating whether <span class="math inline">\(y\)</span> would be increasing or decreasing. Then, the cases where arrows either side of an equilibrium point towards each other denote stability, whilst when they point away they denote instability.</p>
+<p>Again, as an example we consider the system <span class="math inline">\(dy/dt=4-y^2\)</span>. Plotting <span class="math inline">\(f(y)=4-y^2\)</span> against <span class="math inline">\(y\)</span> and adding arrows as described we acquire the following graph</p>
+<p>Thus, we can see that the equilibrium point <span class="math inline">\(y_*=2\)</span> is stable, whilst <span class="math inline">\(y_*=-2\)</span> is unstable. Indeed, looking back at the trajectories we plotted earlier, we can observe that solutions do converge towards <span class="math inline">\(y=2\)</span>, but away from <span class="math inline">\(y=-2\)</span>.</p>
+<p>Moreover, we now note an important consequence of requiring f to be continuous and differentiable; that the solution curves cannot touch each other (except to converge at equilibrium points). This is because these conditions on f guarantee solutions to autonmous ODEs are unique. We can observe in our earlier plot of several trajectories of the system <span class="math inline">\(dy/dt=4-y^2\)</span> that this is indeed the case.</p>
+<p>Our second option to perform such stability analysis comes from utilising the Taylor Series expansion of <span class="math inline">\(f\)</span>. We begin by supposing we are a small distance <span class="math inline">\(\delta(0)\)</span> away from our fixed point <span class="math inline">\(y_*\)</span>, i.e., <span class="math inline">\(y(0)=y_*+\delta(0)\)</span>, and in general that <span class="math inline">\(y(t)=y_*+\delta(t)\)</span>. Then we can write the Taylor Series of <span class="math inline">\(f\)</span> as</p>
+<p><span class="math display">\[ f(y_*+\delta)=f(y_*)+\delta\frac{\partial f}{\partial y}(y_*)+o(\delta), \]</span></p>
+<p>assuming higher order terms can be neglected. Recalling <span class="math inline">\(f(y_*)=0\)</span>, our autonomous ODE becomes</p>
+<p><span class="math display">\[ \frac{d}{dt}(y_*+\delta)=\delta\frac{\partial f}{\partial y}(y_*) \Rightarrow \frac{d\delta}{dt}=\delta\frac{\partial f}{\partial y}(y_*)=k\delta. \]</span></p>
+<p>This ODE for <span class="math inline">\(\delta\)</span> can be solved easily to give <span class="math inline">\(\delta(t)=\delta(0)e^{kt}\)</span>. Then stability can be found based upon whether <span class="math inline">\(\delta(t)\)</span> grows or decays as <span class="math inline">\(t\)</span> increases, i.e., we have</p>
+<p><span class="math display">\[ k = \frac{\partial f}{\partial y}(y_*)\begin{cases} &gt; 0 &amp;: \ \text{Stable},\\ &lt; 0 &amp;: \ \text{Unstable}.  \end{cases} \]</span></p>
+<p>Here, <span class="math inline">\(k\)</span> here is sometimes referred to as the discriminant, whilst this approach is often referred to as Perturbation Analysis.</p>
+<p>Returning to our example ODE again, we can perform such analysis easily</p>
+<p><span class="math display">\[ \frac{\partial f}{\partial y}(y_*) = -2y_*= \begin{cases} -4 &amp;: \ y_*=2, \\ +4 &amp;: \ y_* = -2. \end{cases}\]</span></p>
+<p>Thus we draw the same conclusion as before; <span class="math inline">\(y_*=2\)</span> is stable, and <span class="math inline">\(y_*=-2\)</span> is unstable. We will see later how one of the programs in <strong>phaseR</strong> can perform this stability analysis for us.</p>
+<p>It should now be clear that we can clearly state if <span class="math inline">\(y(0)&gt;2\)</span> or <span class="math inline">\(0&lt;y(0)&lt;2\)</span>; the solution will eventually approach <span class="math inline">\(y=2\)</span>. However, if <span class="math inline">\(y(0)&lt;0\)</span>, <span class="math inline">\(y\rightarrow-\infty\)</span> as <span class="math inline">\(t\rightarrow\infty\)</span> Such general statements can often be made as a result of the above analysis.</p>
+<p>It is worthwhile noting here that if we find</p>
+<p><span class="math display">\[ \frac{\partial f}{\partial y}(y_*)=0, \]</span></p>
+<p>then to this order of the Taylor Series no conclusion can be drawn about stability.</p>
+<p>So, now we have observed all of the key components required to perform a qualitative analysis upon a one dimensional autonomous ODE. We begin by plotting the flow field, and from this several trajectories. We then identify the equilibrium points and choose a method to determine their stability. All such techniques are available in this package, and we will later discuss how to implement them. First however, we will discuss how these methods can be generalised to coupled ODEs.</p>
+</div>
+</div>
+<div id="first-order-dynamical-systems-in-two-dimensions" class="section level2">
+<h2>First order dynamical systems in two dimensions</h2>
+<div id="autonomous-ordinary-differential-equations-in-two-dimensions" class="section level4">
+<h4>Autonomous Ordinary Differential Equations in Two Dimensions</h4>
+<p>As may well be expected, things get substantially more complex in the world of coupled ODEs; very rarely can such systems be solved analytically. Unfortunately, the analysis of many real life systems does involve interacting variables, and so these systems are not uncommon. Here, the first restriction we make is to the case of two dimensional (or two variable) systems; a necessity for the following techniques to be possible (this is often considered a disadvantage of phase plane methods; that they cannot be generalised to more than two dimensions. Fortunately however, many systems can be approximated to two dimensions). These systems can be written in their most general form as</p>
+<p><span class="math display">\[ \frac{dx}{dt}=f(x,y,t),\ \frac{dy}{dt}=g(x,y,t), \]</span></p>
+<p>for <span class="math inline">\(x=x(t)\)</span> and <span class="math inline">\(y=y(t)\)</span>. In this most general case numerical solution would almost certainly be the only way forward. However, if we again make the restriction to autonomous systems, the phase plane methods from one dimension can be generalised to avoid the need for numerical integration. Following the same route as in the one dimensional case, an autonomous system can be written for two coupled ODEs as</p>
+<p><span class="math display">\[ \frac{dx}{dt}=f(x,y),\ \frac{dy}{dt}=g(x,y). \]</span></p>
+<p>As before, the definition of the flow field (more commonly, and from here on out, referred to as the velocity field) and equilibrium points, as well as their stability will be important. Here however, we also meet the concept of nullclines and stable/unstable manifolds. Again, technically we require that <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> are continuous, (and now) partially differentiable functions.</p>
+<p>Before we proceed to discuss the generalisation of our earlier techniques to this two dimensional system, it is useful to note that certain second order ODEs can indeed be re-cast by variable substitution into a system of the type above. Indeed, consider the second order ODE given by:</p>
+<p><span class="math display">\[ a(y)\frac{d^2y}{dt} + b(y)\frac{dy}{dt} + c(y) = 0. \]</span></p>
+<p>We make the substitution <span class="math inline">\(x=dy/dt\)</span> and re-write our system as:</p>
+<p><span class="math display">\[ \frac{dy}{dt} = x,\ \frac{dx}{dt} = \frac{1}{a(y)}\{-b(y)x-c(y)\}. \]</span></p>
+<p>In this way, it is actually possible to analyse the behaviour of certain second order ODEs using the methods for coupled first order ODEs.</p>
+</div>
+<div id="the-velocity-field" class="section level4">
+<h4>The velocity field</h4>
+<p>We observed earlier that the restriction to autonomous ODEs in the one dimensional case allowed us to restrict attention to the phase portrait; the plot of <span class="math inline">\(f(y)\)</span> against <span class="math inline">\(y\)</span>. In the two dimensional case, this restriction allows us to restrict attention to the plane produced by the two dependent variables. Using our notation in the two-dimensional autonomous system prescribed above, this is the <span class="math inline">\(x\)</span>-<span class="math inline">\(y\)</span> plane, and is often referred to in this context as the phase plane. Representation in this manner proves to be the most convenient way to visualise the system.</p>
+<p>In this plane, we can produce a plot analogous to the flow field discussed earlier for one-dimensional autonomous systems, by at many points <span class="math inline">\((x,y)\)</span> plotting a small line segment (a vector) in the direction given by the rates of change of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>; provided by <span class="math inline">\(f(x,y)\)</span> and <span class="math inline">\(g(x,y)\)</span>. This plot is usually referred to as the velocity field, or sometimes the direction field, and perhaps confusingly, the phase portrait. We can then again for any point trace out the trajectory of a solution by using the fact that it must pass through our line segments in a tangential manner. Repeating this procedure for several points, we can again build up a family of solutions and a good picture of the behaviour of solutions to our system two-dimensional autonomous ODE system. As before however, it is important to understand that using this method is only an approximation to performing numerical integration, and things can here become very ambiguous around certain points (the equilibria).</p>
+<p>To illustrate the concept of the velocity field, we again turn to an example. This time consider the system given by:</p>
+<p><span class="math display">\[ \frac{dx}{dt} = x-xy, \ \frac{dy}{dt} = xy-y. \]</span></p>
+<p>Using <strong>phaseR</strong> we can produce the following plot of the velocity field along with several trajectories</p>
+<p>Analogous to the one dimensional analysis performed earlier, we observe how our restriction to continuous partially differentiable <span class="math inline">\(f\)</span> and <span class="math inline">\(g\)</span> ensures that trajectories cannot cross (though they can again converge at equilibria).</p>
+<p>What is more, as before, some texts advise to plot the vectors at lengths reflecting the magnitudes of the rates of change of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. However, some small arbitrary length usually still remains the best option.</p>
+<p>Finally, as was the case in the one dimensional analysis, some texts here again refer to the method of isoclines for tracing out trajectories. Isoclines here are defined as curves in the <span class="math inline">\(x\)</span>-<span class="math inline">\(y\)</span> plane of constant gradient, i.e.</p>
+<p><span class="math display">\[ \frac{dy}{dx} = \frac{g(x,y)}{f(x,y)} = \alpha, \]</span></p>
+<p>for different values of <span class="math inline">\(\alpha\)</span>. Once more, trajectories would be produced by using the fact that we know the angle they should cut each isocline. We will make no further reference to isoclines in these notes; hopefully for reasons discussed below it should become clear why certain tricks make the need for plotting isoclines very rare.</p>
+</div>
+<div id="nullclines" class="section level3">
+<h3>Nullclines</h3>
+<p>A new important concept in the case of two dimensional systems, is that of nullclines. Here, <span class="math inline">\(x\)</span>-nullclines are defined by the locations where <span class="math inline">\(f(x,y)=0\)</span>, whilst the <span class="math inline">\(y\)</span>-nullclines are defined by the locations where <span class="math inline">\(g(x,y)=0\)</span>. Thus, the <span class="math inline">\(x\)</span>- and <span class="math inline">\(y\)</span>-nullclines define the locations where <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> respectively, do not change with <span class="math inline">\(t\)</span>. As a consequence, when plotting a vector field by hand it is usually wise to plot the nullclines first, as the line segments (or vectors) along them move parallel to the <span class="math inline">\(x\)</span>- and <span class="math inline">\(y\)</span>-axes.</p>
+<p>Returning to our example given by system (6), we can find its nullclines as follows:</p>
+<p><span class="math display">\[ \begin{align} x &amp;∶  x-xy = 0 \Rightarrow x(1-y) = 0 \Rightarrow x=0 \text{ or } y=1,\\
+y &amp;∶ xy-y = 0 \Rightarrow y(x-1) = 0 \Rightarrow x=1 \text{ or } y=0. \end{align} \]</span></p>
+<p>We can then plot these nullclines along with the velocity field:</p>
+</div>
+<div id="equilibrium-points-and-stability-1" class="section level3">
+<h3>Equilibrium points and stability</h3>
+<p>Equilibrium points maintain their importance in two dimensions. Here, generalisation defines them to be the locations <span class="math inline">\((x_*,y_*)\)</span> where</p>
+<p><span class="math display">\[ f(x_*,y_*)=g(x_*,y_*)=0. \]</span></p>
+<p>Thus, another utility of nullclines immediately becomes apparent; the locations where <span class="math inline">\(x\)</span>- and <span class="math inline">\(y\)</span>-nullclines cross are the equilibria. However, it is important to note that locations where <span class="math inline">\(x\)</span>-nullclines or <span class="math inline">\(y\)</span>-nullclines cross each other, are not equilibria. For this reason it is usually useful to plot <span class="math inline">\(x\)</span>- and <span class="math inline">\(y\)</span>-nullclines in different colours.</p>
+<p>Revisiting the example system (6), it is easy to find either analytically, or from the nullcline plot, that two equilibria are present; the points <span class="math inline">\((0,0)\)</span> and <span class="math inline">\((1,1)\)</span>.</p>
+<p>We now note a useful fact about equilibria and nullclines from the plot in Section 3.3. On opposite sides of an equilibria, along a nullcline, the orientation of the velocity arrows is reversed. This is a property shared by the majority of systems (with the exception being certain singular cases where the Jacobian that we meet later is zero). Because trajectories must be continuous, the direction vectors must vary continuously from one point to another on the nullclines everywhere else. So in most cases when seeking to plot the velocity field and trajectories, it suffices to determine direction vectors at a few select locations and deduce the rest by preserving continuity and switching orientation when an equilibrium is crossed. It is this trick that makes plotting many isoclines often unnecessary.</p>
+<p>Again, we must now turn our attention to the stability of the equilibrium points. In two dimensions the definition of stability remains the same, but as well as determining whether a point is stable or unstable, we can additionally classify the nature in which trajectories move away or towards it. Ultimately, as in the one dimensional case, we aim to identify the long term behaviour of solutions in different regions of the plane.</p>
+<p>In this case, we must make use of a mathematical argument; to gain a full understanding use of a graph is not enough (though it can be useful in certain singular cases). Here, many texts distinguish between the case of linear and non-linear systems, and so we will also make such a distinction, though ultimately we will treat these two types of system the same.</p>
+<p>The linear version of system (5) is given by</p>
+<p><span class="math display">\[ \frac{dx}{dt} = ax+by,\ \frac{dy}{dt} = cx+dy, \]</span></p>
+<p>or in matrix form:</p>
+<p><span class="math display">\[ \frac{d}{dt}\begin{pmatrix} x \\ y\end{pmatrix} = \frac{d}{dt}\boldsymbol{x} = \begin{pmatrix} a &amp; b \\ c &amp; d \end{pmatrix} \begin{pmatrix} x \\ y\end{pmatrix} = A \boldsymbol{x}. \]</span></p>
+<p>Now, provided <span class="math inline">\(\text{det}(A)\neq0\)</span>, a unique solution exists to this system (we’ll return to discussing the case <span class="math inline">\(\text{det}(A)=0\)</span> later), and can be written in the form</p>
+<p><span class="math display">\[ \boldsymbol{x}=C_1e^{\lambda_1t}\boldsymbol{e}_1 + C_2e^{\lambda_2t}\boldsymbol{e}_2, \]</span></p>
+<p>where <span class="math inline">\(\lambda_1\)</span> and <span class="math inline">\(\lambda_2\)</span> are the eigenvalues of <span class="math inline">\(A\)</span>, <span class="math inline">\(\boldsymbol{e}_1\)</span> and <span class="math inline">\(\boldsymbol{e}_2\)</span> are their corresponding eigenvectors, and <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span> are arbitrary constants. From here we can determine stability based on the values of the eigenvalues. However, the procedure from here on out is the same as that for non-linear systems and so we will move to the analysis required for the more complex case of non-linearity.</p>
+<p>So, from the above it should be obvious that provided <span class="math inline">\(\text{det}(A)\neq0\)</span>, linear systems have only one equilibrium point; <span class="math inline">\((0,0)\)</span>. Non-linear systems however, are much more complicated; they can have multiple equilibria and even display limit cycle behaviour (as defined later). However, close to an equilibrium point, behaviour can be usually understood by linearising the model about the equilibria.</p>
+<p>To do this we proceed in a similar fashion to the Taylor Series method of Section 2.3. We suppose we have an equilibrium point given by <span class="math inline">\((x_*,y_*)\)</span> and that our system lies initially slightly away from this point at <span class="math inline">\((x_*+\delta(0),y_*+\epsilon(0))\)</span>, and in general at <span class="math inline">\((x_*+\delta(t),y_*+\epsilon(t))\)</span>. Then using the Taylor expansion for <span class="math inline">\(f\)</span>, our differential equation for <span class="math inline">\(\boldsymbol{x}\)</span> becomes</p>
+<p><span class="math display">\[ \begin{align} \frac{d\delta}{dt} &amp;= f(x_*+\delta,y_*+\epsilon),\\
+&amp;= f(x_*,y_*) + \delta \frac{\partial f}{\partial x}(x_*,y_*) + \epsilon\frac{\partial f}{\partial y}(x_*,y_*) + o(\delta) + o(\epsilon),\\ &amp;= \delta \frac{\partial f}{\partial x}(x_*,y_*) + \epsilon\frac{\partial f}{\partial y}(x_*,y_*) + o(\delta) + o(\epsilon). \end{align} \]</span></p>
+<p>Similarly, our differential equation for <span class="math inline">\(y\)</span> becomes:</p>
+<p><span class="math display">\[ \frac{d\epsilon}{dt} = \delta \frac{\partial g}{\partial x}(x_*,y_*) + \epsilon\frac{\partial g}{\partial y}(x_*,y_*) + o(\delta) + o(\epsilon). \]</span></p>
+<p>Here we have again assumed terms of second order and higher are negligible.</p>
+<p>If we write this system in matrix form we acquire:</p>
+<p><span class="math display">\[ \frac{d}{dt}\boldsymbol{\delta} = \left. \begin{pmatrix} \frac{\partial f}{\partial x} &amp; \frac{\partial f}{\partial y} \\ \frac{\partial g}{\partial x} &amp; \frac{\partial g}{\partial y} \end{pmatrix}\right|_{(x_*,y_*)}\boldsymbol{\delta} = \left. \begin{pmatrix} f_x &amp; f_y \\ g_x &amp; g_y \end{pmatrix}\right|_{(x_*,y_*)}\boldsymbol{\delta} =  J\boldsymbol{\delta},\]</span> where <span class="math inline">\(J\)</span> is called the Jacobian of the system, and:</p>
+<p><span class="math display">\[ \boldsymbol{\delta} = \begin{pmatrix} \delta \\ \epsilon \end{pmatrix}. \]</span> If we let the eigenvalues of <span class="math inline">\(J\)</span> be denoted <span class="math inline">\(\lambda_1\)</span> and <span class="math inline">\(\lambda_2\)</span>, with corresponding eigenvectors <span class="math inline">\(\boldsymbol{e}_1\)</span> and <span class="math inline">\(\boldsymbol{e}_2\)</span>, then the general solution to the above is:</p>
+<p><span class="math display">\[ \boldsymbol{\delta} = C_1e^{\lambda_1t}\boldsymbol{e}_1+C_2e^{\lambda_2t}\boldsymbol{e}_2, \]</span> where <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span> are arbitrary constants.</p>
+<p>Considering the linear system from earlier we find that <span class="math inline">\(J=A\)</span>. Thus stability of <span class="math inline">\((0,0)\)</span> in the linear case can be determined by the same classification rules as below for the non-linear case. Specifically we have:</p>
+<ul>
+<li>If <span class="math inline">\(\lambda_1\)</span> and <span class="math inline">\(\lambda_2\)</span> are both real and positive (<span class="math inline">\(\lambda_1&gt;\lambda_2&gt;0\)</span> say), the solution for <span class="math inline">\(\delta\)</span> moves outwards in both the <span class="math inline">\(\boldsymbol{e}_1\)</span> and <span class="math inline">\(\boldsymbol{e}_2\)</span> directions (to be precise, it moves more quickly in the <span class="math inline">\(\boldsymbol{e}_1\)</span> direction). Thus <span class="math inline">\(|\boldsymbol{\delta}|\)</span> will increase exponentially with <span class="math inline">\(t\)</span> and so trajectories move away from the equilibrium point. This is the definition of an unstable node.</li>
+<li>If <span class="math inline">\(\lambda_1\)</span> and <span class="math inline">\(\lambda_2\)</span> are both real and negative (<span class="math inline">\(\lambda_1&lt;\lambda_2&lt;0\)</span> say), <span class="math inline">\(|\boldsymbol{\delta}|\)</span> will decrease exponentially and trajectories move towards the equilibrium point. This is the definition of a stable node.</li>
+<li>If <span class="math inline">\(\lambda_1\)</span> and <span class="math inline">\(\lambda_2\)</span> are both real but have opposite sign (<span class="math inline">\(\lambda_1&lt;0\)</span>, <span class="math inline">\(\lambda_2&gt;0\)</span> say), trajectories move outwards along <span class="math inline">\(\boldsymbol{e}_2\)</span>, but inwards along <span class="math inline">\(\boldsymbol{e}_1\)</span>. Unless <span class="math inline">\(\boldsymbol{\delta}\)</span> initially lies exactly parallel to <span class="math inline">\(\boldsymbol{e}_1\)</span>, the solution will eventually move away from the equilibrium point; and thus it is unstable. This is the definition of a saddle point.</li>
+<li>If <span class="math inline">\(\lambda_1\)</span> and <span class="math inline">\(\lambda_2\)</span> are complex (<span class="math inline">\(a \pm ib\)</span> say), then the solution for <span class="math inline">\(\boldsymbol{\delta}\)</span> can be rewritten as:</li>
+</ul>
+<p><span class="math display">\[ \begin{align} \boldsymbol{\delta} &amp;= e^{at}[C_1(\cos bt + i\sin bt)\boldsymbol{e}_1 + C_2(\cos bt - i\sin bt)\boldsymbol{e}_2],\\ &amp;= e^{at}(\boldsymbol{A}\cos bt + \boldsymbol{B}\sin bt),  \end{align} \]</span></p>
+<p>where <span class="math inline">\(\boldsymbol{A}=C_1\boldsymbol{e}_1+C_2\boldsymbol{e}_2\)</span> and <span class="math inline">\(\boldsymbol{B}=i(C_1\boldsymbol{e}_1-C_2\boldsymbol{e}_2)\)</span>. Thus, from this form we can see that the solution will spiral around the equilibrium point. If <span class="math inline">\(a&gt;0\)</span> then with each loop <span class="math inline">\(|\boldsymbol{\delta}|\)</span> increases; this is the definition of an unstable focus. If <span class="math inline">\(a&lt;0\)</span> then we have the opposite situation; with each loop <span class="math inline">\(|\boldsymbol{\delta}|\)</span> decreases; this is the definition of a stable focus. If <span class="math inline">\(a=0\)</span> then the solution continues in a closed loop; this is the definition of a centre.</p>
+<p>Fortunately for us, it is not actually necessary to find the exact values of the eigenvalues (though computationally this is not a difficult task, by hand it can be time consuming). We only require the signs of the eigenvalues, or of their real parts, to perform the classification. To this end, consider the characteristic equation of <span class="math inline">\(J\)</span>:</p>
+<p><span class="math display">\[ (f_x-λ)(g_y-λ)-f_y g_x=0. \]</span></p>
+<p>Observing that <span class="math inline">\(\text{tr}(J)=f_x+g_y\)</span> and <span class="math inline">\(\text{det}(J)=\Delta=f_x g_y-f_y g_x\)</span>, we can write the characteristic equation of <span class="math inline">\(J\)</span> as:</p>
+<p><span class="math display">\[ \begin{align} \lambda^2 - T\lambda+\Delta &amp;= 0,\\ \Longrightarrow \lambda &amp;= \frac{T \pm \sqrt{T^2-4\Delta}}{2}. \end{align}\]</span></p>
+<p>From this we can draw up the following table that allows us to classify the equilibria using the signs of <span class="math inline">\(T\)</span>, <span class="math inline">\(\Delta\)</span> and <span class="math inline">\(T^2-4\Delta\)</span>:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right"><span class="math inline">\(\Delta\)</span></th>
+<th align="right"><span class="math inline">\(T^2-4\Delta\)</span></th>
+<th align="right">Eigenvalues of <span class="math inline">\(J\)</span></th>
+<th align="right"><span class="math inline">\(T\)</span></th>
+<th align="right">Classification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right"><span class="math inline">\(&lt;0\)</span></td>
+<td align="right"><span class="math inline">\(&gt;0\)</span></td>
+<td align="right">Real, opposite signs</td>
+<td align="right">N/A</td>
+<td align="right">Saddle</td>
+</tr>
+<tr class="even">
+<td align="right"><span class="math inline">\(&gt;0\)</span></td>
+<td align="right"><span class="math inline">\(&gt;0\)</span></td>
+<td align="right">Real, same signs</td>
+<td align="right"><span class="math inline">\(&lt;0\)</span></td>
+<td align="right">Stable node</td>
+</tr>
+<tr class="odd">
+<td align="right"><span class="math inline">\(&gt;0\)</span></td>
+<td align="right"><span class="math inline">\(&gt;0\)</span></td>
+<td align="right">Real, same signs</td>
+<td align="right"><span class="math inline">\(&gt;0\)</span></td>
+<td align="right">Unstable node</td>
+</tr>
+<tr class="even">
+<td align="right"><span class="math inline">\(&gt;0\)</span></td>
+<td align="right"><span class="math inline">\(&lt;0\)</span></td>
+<td align="right">Complex conjugate pair</td>
+<td align="right"><span class="math inline">\(&lt;0\)</span></td>
+<td align="right">Stable focus</td>
+</tr>
+<tr class="odd">
+<td align="right"><span class="math inline">\(&gt;0\)</span></td>
+<td align="right"><span class="math inline">\(&lt;0\)</span></td>
+<td align="right">Complex conjugate pair</td>
+<td align="right"><span class="math inline">\(=0\)</span></td>
+<td align="right">Centre</td>
+</tr>
+<tr class="even">
+<td align="right"><span class="math inline">\(&gt;0\)</span></td>
+<td align="right"><span class="math inline">\(&lt;0\)</span></td>
+<td align="right">Complex conjugate pair</td>
+<td align="right"><span class="math inline">\(&gt;0\)</span></td>
+<td align="right">Unstable focus</td>
+</tr>
+<tr class="odd">
+<td align="right"><span class="math inline">\(=0\)</span></td>
+<td align="right">N/A</td>
+<td align="right"></td>
+<td align="right">N/A</td>
+<td align="right">Indeterminate</td>
+</tr>
+<tr class="even">
+<td align="right">N/A</td>
+<td align="right"><span class="math inline">\(=0\)</span></td>
+<td align="right">Real, equal</td>
+<td align="right"><span class="math inline">\(&lt;0\)</span></td>
+<td align="right">Stable node</td>
+</tr>
+<tr class="odd">
+<td align="right">N/A</td>
+<td align="right"><span class="math inline">\(=0\)</span></td>
+<td align="right">Real, equal</td>
+<td align="right"><span class="math inline">\(&gt;0\)</span></td>
+<td align="right">Unstable node</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> Focus’ are often referred to as spirals.</p>
+<p>From here, we will always refer to <span class="math inline">\(T^2-4\Delta\)</span> as the discriminant.</p>
+<p>To be more precise, for the case of <span class="math inline">\(\Delta=0\)</span>; we would have to consider second-order terms in the Taylor Series approximation made earlier in order to determine stability. Alternatively, in this case, use of the velocity field and traced trajectories can allow us to identify if the point is stable or not.</p>
+<p>Returning to our example system from earlier, taking partial derivatives we can compute the Jacobian at any equilibrium point <span class="math inline">\((x_*,y_*)\)</span> from the general version:</p>
+<p><span class="math display">\[ J = \begin{pmatrix} 1 - y_* &amp; -x_* \\ y_* &amp; x_* - 1\end{pmatrix}.  \]</span></p>
+<p>Thus, at <span class="math inline">\((0,0)\)</span>, we have:</p>
+<p><span class="math display">\[ J = \left.\begin{pmatrix} 1 &amp; 0 \\ 0 &amp; -1 \end{pmatrix}\right|_{(0,0)}. \]</span> So <span class="math inline">\(\text{tr}(J)=T=0\)</span> and <span class="math inline">\(\text{det}(J)=\Delta=-1\)</span>; which from our table above makes <span class="math inline">\((0,0)\)</span> a saddle point. For <span class="math inline">\((1,1)\)</span> however, we have:</p>
+<p><span class="math display">\[ J = \left.\begin{pmatrix} 0 &amp; -1 \\ 1 &amp; 0 \end{pmatrix}\right|_{(1,1)}. \]</span> Therefore, <span class="math inline">\(\text{tr}(J)=T=0\)</span> and <span class="math inline">\(\text{det}(J)=\Delta=1\)</span>; which from our table above makes <span class="math inline">\((1,1)\)</span> a centre. Indeed, if we look back at our earlier plot, we can observe trajectories diverging away from <span class="math inline">\((0,0)\)</span>, but traversing around <span class="math inline">\((1,1)\)</span>. Again, we will see later how this analysis can be performed for us in <strong>phaseR</strong>.</p>
+<p>As a last point of interest, note that it is sometimes interesting to plot <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> trajectories against <span class="math inline">\(t\)</span>. For the case of <span class="math inline">\((x_0,y_0)=(3,4)\)</span> in our example system this results in the following plot where we can witness the oscillating nature of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>:</p>
+<p>The utility of such plots becomes more apparent in cases where trajectories can be seen to converge upon an equilibrium point; indicating its stability and often whether it is a node or focus.</p>
+<p>So, we have now discussed all of the techniques required to a perform phase plane analysis of a two dimensional autonomous ODE system. We begin by locating and plotting nullclines, using these to create the velocity field. From this we can plot numerous trajectories. We then identify any equilibria and classify them according to the earlier table. Before we move to discuss how to use <strong>phaseR</strong> however, we will give brief attention to two additional considerations of interest in the analysis of two dimensional autonomous ODE systems.</p>
+</div>
+<div id="stable-and-unstable-manifolds" class="section level3">
+<h3>Stable and unstable manifolds</h3>
+<p>The stable and unstable manifolds of an equilibrium point give a formal mathematical definition to the general notions embodied in the idea of a point being an attractor or repellor. Precisely, the stable and unstable manifolds are defined as the set of all points in the plane which tend to the equilibrium point as time goes to positive, and respectively negative, infinity. For example, a system with a single stable node will have the whole plane as its stable manifold and just the node itself as its unstable manifold.</p>
+<p>Things are slightly more interesting for saddle points however. Recall that saddle points have a positive eigenvalue and a negative eigenvalue. The stable (unstable) manifold of a saddle point is the eigenvector corresponding to the positive (negative) eigenvalue. Moreover, the stable and unstable manifolds of saddle points are very important to understanding the global behaviour of the orbits of the whole planar system. They form separatrices; partitioning the plane into invariant regions of differing dynamics. We will see evidence of such separatrices in an example later when we observe how <strong>phaseR</strong> can be used to plot the stable and unstable manifolds of any saddle point.</p>
+</div>
+<div id="limit-cycles" class="section level3">
+<h3>Limit cycles</h3>
+<p>Non-linear systems can also exhibit a type of behaviour known as a limit cycle. In the phase plane, a limit cycle is defined as an isolated closed orbit. Closed here denotes the periodic nature of the motion and isolated denotes the limiting nature of the cycle; with nearby trajectories converging to, or diverging away from, it. Limit cycles have a complex mathematical theory behind them, which we will not go into here. We will however observe an example of limit cycle behaviour later on.</p>
+</div>
+</div>
+<div id="phaser-usage" class="section level2">
+<h2>phaseR usage</h2>
+<p>To perform all of the techniques discussed above, the package contains nine key functions. Below is a description of each ones utility, as well as the user specifiable input variables, and the output you can expect. The description of the inputs and outputs is repetitive on purpose to reflect how many are common across programs, and for the most part equal to the descriptions seen in <strong>R</strong>. In addition, we will continue to use <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span> and <span class="math inline">\(t\)</span> as our variables.</p>
+<div id="drawmanifolds" class="section level3">
+<h3><code>drawManifolds()</code></h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">drawManifolds</span>(deriv, <span class="dt">y0 =</span> <span class="ot">NULL</span>, <span class="dt">parameters =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">              <span class="dt">tend =</span> <span class="dv">1000</span>, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;green&quot;</span>, <span class="st">&quot;red&quot;</span>),</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">              <span class="dt">add.legend =</span> <span class="ot">TRUE</span>, ...)</a></code></pre></div>
+<p>This function allows the user to plot the stable and unstable manifolds of a saddle point. The following inputs can be set:</p>
+<ul>
+<li><code>deriv</code>: A function computing the derivative at a point for the ODE system to be analysed. More discussion of the required structure of these functions is supplied at the end of this Chapter.</li>
+<li><code>y0</code>: The initial point from which a saddle will be searched for. This can either be a vector of length two reflecting the location of the two dependent variables initially, or it can be left blank and the user can use <code>locator()</code> to specify the initial point on a plot.</li>
+<li><code>parameters</code>: Parameters of the ODE system, to be passed to <code>deriv</code>. Supplied as a vector; the order of the parameters can be found from the <code>deriv</code> file. Defaults to <code>NULL</code>.</li>
+<li><code>tend</code>: The final time of the numerical integration performed to identify the manifolds.</li>
+<li><code>col</code>: Sets the colour of the plotted manifolds. Should be a vector of length two. Will be reset accordingly if it is a vector of the wrong length. Defaults to <code>col = c(&quot;green&quot;, &quot;red&quot;)</code>.</li>
+<li><code>add.legend</code>: Logical. If <code>TRUE</code>, a legend is added to the plot. Defaults to <code>TRUE</code>.</li>
+</ul>
+<p>Returned by <code>drawManifolds()</code> is a list containing all of the input variables as well as following components:</p>
+<ul>
+<li><code>stable</code>: A matrix with three columns; the first containing values of time, the second of values of <span class="math inline">\(x\)</span>, and the third values of <span class="math inline">\(y\)</span> corresponding to the identified stable manifold.</li>
+<li><code>unstable</code>: A matrix with three columns; the first containing values of time, the second of values of <span class="math inline">\(x\)</span>, and the third values of <span class="math inline">\(y\)</span> corresponding to the identified unstable manifold.</li>
+</ul>
+</div>
+<div id="findequilibrium" class="section level3">
+<h3><code>findEquilibrium()</code></h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">findEquilibrium</span>(deriv, <span class="dt">y0 =</span> <span class="ot">NULL</span>, <span class="dt">parameters =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">                <span class="dt">system =</span> <span class="st">&quot;two.dim&quot;</span>, <span class="dt">tol =</span> <span class="fl">1e-16</span>, <span class="dt">max.iter =</span> <span class="dv">50</span>,</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">                <span class="dt">h =</span> <span class="fl">1e-6</span>, <span class="dt">plot.it =</span> <span class="ot">FALSE</span>, <span class="dt">summary =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p>This function allows the user to search for an equilibrium point. The following inputs can be set:</p>
+<ul>
+<li><code>deriv</code>: A function computing the derivative at a point for the ODE system to be analysed. More discussion of the required structure of these functions is supplied at the end of this Chapter.</li>
+<li><code>y0</code>: The initial point from which a saddle will be searched for. This can either be a vector of length two reflecting the location of the two dependent variables initially, or it can be left blank and the user can use <code>locator()</code> to specify the initial point on a plot.</li>
+<li><code>parameters</code>: Parameters of the ODE system, to be passed to <code>deriv</code>. Supplied as a vector; the order of the parameters can be found from the <code>deriv</code> file. Defaults to <code>NULL</code>.</li>
+<li><code>system</code>: Set to either <code>&quot;one.dim&quot;</code> or <code>&quot;two.dim&quot;</code> to indicate the type of system being analysed. Defaults to <code>&quot;two.dim&quot;</code>.</li>
+<li><code>tol</code>:</li>
+<li><code>max.iter</code>:</li>
+<li><code>plot.it</code>:</li>
+<li><code>h</code>: Step length used to approximate the derivative(s). Defaults to <code>1e-7</code>.</li>
+<li><code>summary</code>: Logical. If <code>TRUE</code>, a summary of the classification of the equilibrium point is printed to the console. Defaults to <code>TRUE</code>.</li>
+</ul>
+<p>Returned by <code>findEquilibrium()</code> is a list object containing all of the input variables as well as following components (the exact the exact make up is dependent upon the value of <code>system</code>):</p>
+<ul>
+<li><code>Delta</code>: In the two dimensional system case, the value of the Jacobians determinant at ystar.</li>
+<li><code>discriminant</code>: In the one dimensional system case, the value of the discriminant used in Perturbation Analysis to assess stability. In the two dimensional system case, the value of <span class="math inline">\(T^2 - 4\Delta\)</span>.</li>
+<li><code>eigenvalues</code>: In the two dimensional system case, the value of the Jacobians eigenvalues at <code>ystar</code>.</li>
+<li><code>eigenvectors</code>: In the two dimensional system case, the value of the Jacobians eigenvectors at <code>ystar</code>.</li>
+<li><code>jacobian</code>: In the two dimensional system case, the Jacobian at <code>ystar</code>.</li>
+<li><code>tr</code>: In the two dimensional system case, the value of the Jacobians trace at <code>ystar</code>.</li>
+</ul>
+</div>
+<div id="flowfield" class="section level3">
+<h3><code>flowField()</code></h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">flowField</span>(deriv, xlim, ylim, <span class="dt">parameters =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">          <span class="dt">system =</span> <span class="st">&quot;two.dim&quot;</span>, <span class="dt">points =</span> <span class="dv">21</span>, <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>,</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">          <span class="dt">arrow.type =</span> <span class="st">&quot;equal&quot;</span>, <span class="dt">arrow.head =</span> <span class="fl">0.05</span>, <span class="dt">frac =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">          <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;y&quot;</span>, ...)</a></code></pre></div>
+<p>This function allows the user to plot the flow or velocity field for a one or two dimensional autonomous ODE system. The following inputs can be set:</p>
+<ul>
+<li><code>deriv</code>: A function computing the derivative at a point for the ODE system to be analysed. More discussion of the required structure of these functions is supplied at the end of this Chapter.</li>
+<li><code>xlim</code>: In the case of a two dimensional system, this sets the limits of the first dependent variable in which gradient reflecting line segments should be plotted. In the case of a one dimensional system, this sets the limits of the independent variable in which these line segments should be plotted. Should be a vector of length two.</li>
+<li><code>ylim</code>: In the case of a two dimensional system this sets the limits of the second dependent variable in which gradient reflecting line segments should be plotted. In the case of a one variable system, this sets the limits of the dependent variable in which these line segments should be plotted. Should be a vector of length two.</li>
+<li><code>parameters</code>: Parameters of the ODE system, to be passed to <code>deriv</code>. Supplied as a vector; the order of the parameters can be found from the <code>deriv</code> file. Defaults to <code>NULL</code>.</li>
+<li><code>system</code>: Set to either <code>&quot;one.dim&quot;</code> or <code>&quot;two.dim&quot;</code> to indicate the type of system being analysed. Defaults to <code>&quot;two.dim&quot;</code>.</li>
+<li><code>points</code>: Sets the density of the line segments to be plotted. <code>points</code> segments will be plotted in the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> directions. Fine tuning here, by shifting points up and down, allows for the creation of more aesthetically pleasing plots. Defaults to <code>11</code>.</li>
+<li><code>col</code>: Sets the colour of the plotted line segments. Should be a vector of length one. Will be reset accordingly if it is a vector of the wrong length. Defaults to <code>&quot;gray&quot;</code>.</li>
+<li><code>arrow.type</code>: Sets the type of line segments plotted. If set to <code>&quot;proportional&quot;</code> the length of the line segments reflects the magnitude of the derivative. If set to <code>&quot;equal&quot;</code> the line segments take equal lengths, simply reflecting the gradient of the derivative(s). Defaults to <code>&quot;equal&quot;</code>.</li>
+<li><code>arrow.head</code>: Sets the length of the arrow heads. Passed to <code>arrows()</code>. Defaults to <code>0.05</code>.</li>
+<li><code>frac</code>: Sets the fraction of the theoretical maximum length line segments can take without overlapping, that they can actually attain. In practice, <code>frac</code> can be set to greater than 1 without line segments overlapping. Fine tuning here assists the creation of aesthetically pleasing plots. Defaults to <code>1</code>.</li>
+<li><code>add</code>: Logical. If <code>TRUE</code>, the flow field is added to an existing plot. If <code>FALSE</code>, a new plot is created. Defaults to <code>TRUE</code>.</li>
+<li><code>xlab</code>: Label for the <span class="math inline">\(x\)</span>-axis of the resulting plot. Defaults to <code>&quot;x&quot;</code>.</li>
+<li><code>ylab</code>: Label for the <span class="math inline">\(y\)</span>-axis of the resulting plot. Defaults to <code>&quot;y&quot;</code>.</li>
+<li><code>...</code>: Additional arguments to be passed to either <code>plot()</code> or <code>arrows()</code>.</li>
+</ul>
+<p>Returned by <code>flowField()</code> is a list object containing all of the input variables as well as following components (the exact the exact make up is dependent upon the value of <code>system</code>):</p>
+<ul>
+<li><code>dx</code>: A matrix. In the case of a two dimensional system, the values of the derivative of the first dependent derivative at all evaluated points.</li>
+<li><code>dy</code>: A matrix. In the case of a two dimensional system, the values of the derivative of the second dependent variable at all evaluated points. In the case of a one dimensional system, the values of the derivative of the dependent variable at all evaluated points.</li>
+<li><code>x</code>: A vector. In the case of a two dimensional system, the values of the first dependent variable at which the derivatives were computed. In the case of a one dimensional system, the values of the independent variable at which the derivatives were computed.</li>
+<li><code>y</code>: A vector. In the case of a two dimensional system, the values of the second dependent variable at which the derivatives were computed. In the case of a one dimensional system, the values of the dependent variable at which the derivatives were computed.</li>
+</ul>
+</div>
+<div id="nullclines-1" class="section level3">
+<h3><code>nullclines()</code></h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">nullclines</span>(deriv, xlim, ylim, <span class="dt">parameters =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">           <span class="dt">system =</span> <span class="st">&quot;two.dim&quot;</span>, <span class="dt">points =</span> <span class="dv">101</span>,</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">           <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;cyan&quot;</span>), <span class="dt">add =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">           <span class="dt">add.legend =</span> <span class="ot">TRUE</span>, ...)</a></code></pre></div>
+<p>This function allows the user to plot nullclines for two dimensional autonomous ODE systems. Or it can be used to plot horizontal lines at equilibrium points for one dimensional autonomous ODE systems. The following inputs can be set:</p>
+<ul>
+<li><code>deriv</code>: A function computing the derivative at a point for the ODE system to be analysed. More discussion of the required structure of these functions is supplied at the end of this Chapter.</li>
+<li><code>xlim</code>: In the case of a two dimensional system, this sets the limits of the first dependent variable in which gradient reflecting line segments should be plotted. In the case of a one dimensional system, this sets the limits of the independent variable in which these line segments should be plotted. Should be a vector of length two.<br />
+</li>
+<li><code>ylim</code>: In the case of a two dimensional system this sets the limits of the second dependent variable in which gradient reflecting line segments should be plotted. In the case of a dimensional system, this sets the limits of the dependent variable in which these line segments should be plotted. Should be a vector of length two.</li>
+<li><code>parameters</code>: Parameters of the ODE system, to be passed to <code>deriv</code>. Supplied as a vector; the order of the parameters can be found from the <code>deriv</code> file. Defaults to <code>NULL</code>.</li>
+<li><code>system</code>: Set to either <code>&quot;one.dim&quot;</code> or <code>&quot;two.dim&quot;</code> to indicate the type of system being analysed. Defaults to <code>&quot;two.dim&quot;</code>.</li>
+<li><code>points</code>: Sets the density at which derivatives are computed. <code>points</code> <span class="math inline">\(\times\)</span> <code>points</code> derivatives will be computed. Levels of zero gradient are identified using these computations and the function contour. Increasing the value of points improves identification of nullclines, but increases computation time. Defaults to <code>101</code>.</li>
+<li><code>col</code>: In the case of a two dimensional system, sets the colours used for the <span class="math inline">\(x\)</span>- and <span class="math inline">\(y\)</span>-nullclines. In the case of a one dimensional system, sets the colour of the lines plotted horizontally along the equilibria. Will be reset accordingly if it is a vector of the wrong length. Defaults to <code>c(&quot;red&quot;, &quot;blue&quot;)</code>.</li>
+<li><code>add</code>: Logical. If <code>TRUE</code>, the nullclines are added to an existing plot. If <code>FALSE</code>, a new plot is created. Defaults to <code>TRUE</code>.</li>
+<li><code>add.legend</code>: Logical. If <code>TRUE</code>, a legend is added to the plot. Defaults to <code>TRUE</code>.</li>
+<li><code>...</code>: Additional arguments to be passed to either <code>plot()</code> or <code>contour()</code>.</li>
+</ul>
+<p>Returned by nullclines is a list object containing all of the input variables as well as following components (the exact the exact make up is dependent upon the value of system):</p>
+<ul>
+<li><code>dx</code>: A matrix. In the case of a two dimensional system, the values of the derivative of the first dependent derivative at all evaluated points.</li>
+<li><code>dy</code>: A matrix. In the case of a two dimensional system, the values of the derivative of the second dependent variable at all evaluated points. In the case of a one dimensional system, the values of the derivative of the dependent variable at all evaluated points.</li>
+<li><code>x</code>: A vector. In the case of a two dimensional system, the values of the first dependent variable at which the derivatives were computed. In the case of a one dimensional system, the values of the independent variable at which the derivatives were computed.</li>
+<li><code>y</code>: A vector. In the case of a two dimensional system, the values of the second dependent variable at which the derivatives were computed. In the case of a one dimensional system, the values of the dependent variable at which the derivatives were computed.</li>
+</ul>
+</div>
+<div id="numericalsolution" class="section level3">
+<h3><code>numericalSolution()</code></h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">numericalSolution</span>(deriv, <span class="dt">y0 =</span> <span class="ot">NULL</span>, tlim, <span class="dt">tstep =</span> <span class="fl">0.01</span>,</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">                  <span class="dt">parameters =</span> <span class="ot">NULL</span>, <span class="dt">type =</span> <span class="st">&quot;two&quot;</span>,</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">                  <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>), <span class="dt">add.grid =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">                  <span class="dt">add.legend =</span> <span class="ot">TRUE</span>, ...)</a></code></pre></div>
+<p>Used for two dimensional systems, this function numerically solves the autonomous ODE system for a given initial condition. It then plots the dependent variables against the independent variable. The following inputs can be set:</p>
+<ul>
+<li><code>deriv</code>: A function computing the derivative at a point for the ODE system to be analysed. More discussion of the required structure of these functions is supplied at the end of this Chapter.</li>
+<li><code>y0</code>: The initial condition. Should be a vector of length two reflecting the location of the two dependent variables initially.</li>
+<li><code>tlim</code>: A vector of length 2 containing the values of the independent variable to begin and end the numerical integration at.</li>
+<li><code>tstep</code>: The step length of the independent variable, used in numerical integration. Decreasing <code>tstep</code> theoretically makes the numerical integration more accurate, but increases computation time. Defaults to <code>0.01</code>.</li>
+<li><code>parameters</code>: Parameters of the ODE system, to be passed to <code>deriv</code>. Supplied as a vector; the order of the parameters can be found from the <code>deriv</code> file. Defaults to <code>NULL</code>.</li>
+<li><code>type</code>: If set to <code>&quot;one&quot;</code> the trajectories are plotted on the same graph. If set to <code>&quot;two&quot;</code> they are plotted on separate graphs. Defaults to <code>&quot;two&quot;</code>.</li>
+<li><code>col</code>: Sets the colours of the trajectories of the two dependent variables. Will be reset accordingly if it is not a vector of length two. Defaults to <code>rep(&quot;black&quot;, 2)</code>.</li>
+<li><code>add.grid</code>: Logical. If <code>TRUE</code>, a grid is added to the plot. Defaults to <code>TRUE</code>.</li>
+<li><code>add.legend</code>: Logical. If <code>TRUE</code>, a legend is added to the plot. Defaults to <code>TRUE</code>.</li>
+<li><code>...</code>: Additional arguments to be passed to <code>plot()</code>.</li>
+</ul>
+<p>Here, the numerical integration is performed by the function <code>ode()</code> from the <strong>deSolve</strong> package.</p>
+<p>Returned by numericalSolution is a list object containing all of the input variables as well as following:</p>
+<ul>
+<li><code>t</code>: A vector containing the values of the independent variable at each integration step.</li>
+<li><code>x</code>: A vector containing the numerically computed values of the first dependent variable at each integration step.</li>
+<li><code>y</code>: A vector containing the numerically computed values of the second dependent variable at each integration step.</li>
+</ul>
+</div>
+<div id="phaseplaneanalysis" class="section level3">
+<h3><code>phasePlaneAnalysis()</code></h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">phasePlaneAnalysis</span>(deriv, xlim, ylim, <span class="dt">tend =</span> <span class="dv">100</span>,</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">                   <span class="dt">parameters =</span> <span class="ot">NULL</span>, <span class="dt">system =</span> <span class="st">&quot;two.dim&quot;</span>,</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">                   <span class="dt">add =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p>This function allows the user to perform a basic phase plane analysis and produce a simple plot without the need to use the other functions directly. Specifically, a list is provided and the user inputs a value to the console to decide what is added to the plot. The following inputs can be set:</p>
+<ul>
+<li><code>deriv</code>: A function computing the derivative at a point for the ODE system to be analysed. More discussion of the required structure of these functions is supplied at the end of this Chapter.</li>
+<li><code>xlim</code>: In the case of a two dimensional system, this sets the limits of the first dependent variable in which gradient reflecting line segments should be plotted. In the case of a one dimensional system, this sets the limits of the independent variable in which these line segments should be plotted. Should be a vector of length two.<br />
+</li>
+<li><code>ylim</code>: In the case of a two dimensional system this sets the limits of the second dependent variable in which gradient reflecting line segments should be plotted. In the case of a dimensional system, this sets the limits of the dependent variable in which these line segments should be plotted. Should be a vector of length two.</li>
+<li><code>tend</code>: The final time of the numerical integration performed to identify the manifolds.</li>
+<li><code>parameters</code>: Parameters of the ODE system, to be passed to <code>deriv</code>. Supplied as a vector; the order of the parameters can be found from the <code>deriv</code> file. Defaults to <code>NULL</code>.</li>
+<li><code>system</code>: Set to either <code>&quot;one.dim&quot;</code> or <code>&quot;two.dim&quot;</code> to indicate the type of system being analysed. Defaults to <code>&quot;two.dim&quot;</code>.</li>
+<li><code>add</code>: Logical. If <code>TRUE</code>, the nullclines are added to an existing plot. If <code>FALSE</code>, a new plot is created. Defaults to <code>TRUE</code>.</li>
+</ul>
+</div>
+<div id="phaseportrait" class="section level3">
+<h3><code>phasePortrait()</code></h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">phasePortrait</span>(deriv, ylim, <span class="dt">ystep =</span> <span class="fl">0.01</span>, <span class="dt">parameters =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">              <span class="dt">points =</span> <span class="dv">10</span>, <span class="dt">frac =</span> <span class="fl">0.75</span>, <span class="dt">arrow.head =</span> <span class="fl">0.075</span>,</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">              <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;f(y)&quot;</span>,</a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">              <span class="dt">add.grid =</span> <span class="ot">TRUE</span>, ...)</a></code></pre></div>
+<p>For a one dimensional autonomous ODE, it plots the phase portrait, i.e., the derivative against the dependent variable. In addition, along the dependent variable axis it plots arrows pointing in the direction of dependent variable change with increasing value of the independent variable. From this stability of equilibrium points (i.e., locations where the horizontal axis is crossed) can be determined:</p>
+<ul>
+<li><code>deriv</code>: A function computing the derivative at a point for the ODE system to be analysed. More discussion of the required structure of these functions is supplied at the end of this Chapter.</li>
+<li><code>ylim</code>: Sets the limits of the dependent variable for which the derivative should be computed and plotted. Should be a vector of length two.</li>
+<li><code>ystep</code>: Sets the step length of the dependent variable vector for which derivatives are computed and plotted. Decreasing <code>ystep</code> makes the resulting plot more accurate, but comes at a small cost to computation time. Defaults to <code>0.01</code>.</li>
+<li><code>parameters</code>: Parameters of the ODE system, to be passed to <code>deriv</code>. Supplied as a vector; the order of the parameters can be found from the <code>deriv</code> file. Defaults to <code>NULL</code>.</li>
+<li><code>points</code>: Sets the density at which arrows are plotted along the horizontal axis. points arrows will be plotted. Fine tuning here, by shifting points up and down, allows for the creation of more aesthetically pleasing plots. Defaults to <code>10</code>.</li>
+<li><code>frac</code>: Sets the fraction of the theoretical maximum length line segments can take without overlapping, that they actually attain. Fine tuning here assists the creation of aesthetically pleasing plots. Defaults to <code>0.5</code>.</li>
+<li><code>arrow.head</code>: Sets the length of the arrow heads. Passed to <code>arrows()</code>. Defaults to <code>0.075</code>.</li>
+<li><code>col</code>: Sets the colour of the line in the plot, as well as the arrows. Will be reset accordingly if it is not a vector of length one. Defaults to <code>&quot;black&quot;</code>.</li>
+<li><code>xlab</code>: Label for the <span class="math inline">\(x\)</span>-axis of the resulting plot. Defaults to <code>&quot;y&quot;</code>.</li>
+<li><code>ylab</code>: Label for the <span class="math inline">\(y\)</span>-axis of the resulting plot. Defaults to <code>&quot;f(y)&quot;</code>.</li>
+<li><code>add.grid</code>: Logical. If <code>TRUE</code>, a grid is added to the plot. Defaults to <code>TRUE</code>.</li>
+<li><code>...</code>: Additional arguments to be passed to either <code>plot()</code> or <code>arrows()</code>.</li>
+</ul>
+<p>Returned by <code>phasePortrait()</code> is a list object containing all of the input variables as well as the following:</p>
+<ul>
+<li><code>dy</code>: A vector containing the value of the derivative at each evaluated point.</li>
+<li><code>y</code>: A vector containing the values of the dependent variable for which the derivative was evaluated.</li>
+</ul>
+</div>
+<div id="stability" class="section level3">
+<h3><code>stability()</code></h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">stability</span>(deriv, <span class="dt">ystar =</span> <span class="ot">NULL</span>, <span class="dt">parameters =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">          <span class="dt">system =</span> <span class="st">&quot;two.dim&quot;</span>, <span class="dt">h =</span> <span class="fl">1e-07</span>, <span class="dt">summary =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p>Uses stability analysis to classify equilibrium points. Uses the Taylor Series approach (also known as Perturbation Analysis) to classify equilibrium points of a one dimensional autonomous ODE system, or the Jacobian approach to classify equilibrium points of a two dimensional autonomous ODE system. The following inputs can be set:</p>
+<ul>
+<li><code>deriv</code>: A function computing the derivative at a point for the ODE system to be analysed. More discussion of the required structure of these functions is supplied at the end of this Chapter.</li>
+<li><code>ystar</code>: The point at which to perform stability analysis. For a one variable system this should be a single number, for a two variable system this should be a vector of length two (i.e. presently only one equilibrium points stability can be evaluated at a time). Alternatively this can be left blank and the user can use locator to choose a point to perform the analysis. However, given you are unlikely to locate exactly the equilibrium point, if possible enter <code>ystar</code> yourself. Defaults to <code>NULL</code>.</li>
+<li><code>parameters</code>: Parameters of the ODE system, to be passed to <code>deriv</code>. Supplied as a vector; the order of the parameters can be found from the <code>deriv</code> file. Defaults to <code>NULL</code>.</li>
+<li><code>system</code>: Set to either <code>&quot;one.dim&quot;</code> or <code>&quot;two.dim&quot;</code> to indicate the type of system being analysed. Defaults to <code>&quot;two.dim&quot;</code>.</li>
+<li><code>h</code>: Step length used to approximate the derivative(s). Defaults to <code>1e-7</code>.</li>
+<li><code>summary</code>: Logical. If <code>TRUE</code>, a summary of the classification of the equilibrium point is printed to the console. Defaults to <code>TRUE</code>.</li>
+</ul>
+<p>Returned by <code>stability()</code> is a list object containing all of the input variables as well as following components (the exact the exact make up is dependent upon the value of system):</p>
+<ul>
+<li><code>Delta</code>: In the two dimensional system case, Value of the Jacobians determinant at <code>ystar</code>.</li>
+<li><code>discriminant</code>: In the one dimensional system case, the value of the discriminant used in Perturbation Analysis to assess stability. In the two dimensional system case, the value of <span class="math inline">\(T^2 - 4\Delta\)</span>.</li>
+<li><code>eigenvalues</code>: In the two dimensional system case, the value of the Jacobians eigenvalues at <code>ystar</code>.</li>
+<li><code>eigenvectors</code>: In the two dimensional system case, the value of the Jacobians eigenvectors at <code>ystar</code>.</li>
+<li><code>Jacobian</code>: In the two dimensional system case, the Jacobian at <code>ystar</code>.</li>
+<li><code>tr</code>: In the two dimensional system case, the value of the Jacobians trace at <code>ystar</code>.</li>
+</ul>
+</div>
+<div id="trajectory" class="section level3">
+<h3><code>trajectory()</code></h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">trajectory</span>(deriv, <span class="dt">y0 =</span> <span class="ot">NULL</span>, <span class="dt">n =</span> <span class="ot">NULL</span>, tlim, <span class="dt">tstep =</span> <span class="fl">0.01</span>,</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">           <span class="dt">parameters =</span> <span class="ot">NULL</span>, <span class="dt">system =</span> <span class="st">&quot;two.dim&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>,</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">           <span class="dt">add =</span> <span class="ot">TRUE</span>, ...)</a></code></pre></div>
+<p>This function allows the user to plot trajectories by performing numerical integration of the chosen ODE system, for a user specifiable range of initial conditions. The following inputs can be set:</p>
+<ul>
+<li><code>deriv</code>: A function computing the derivative at a point for the ODE system to be analysed. More discussion of the required structure of these functions is supplied at the end of this Chapter.</li>
+<li><code>y0</code>: The initial condition(s). In the case of a one dimensional system, this can either be a single number indicating the location of the dependent variable initially, or a vector indicating multiple initial locations of the independent variable. In the case of a two dimensional system, this can either be a vector of length two reflecting the location of the two dependent variables initially. Or it can be matrix where each row reflects a different initial condition. Alternatively this can be left blank and the user can use <code>locator()</code> to specify initial condition(s) on a plot. In this case, for one dimensional systems, all initial conditions are taken at the first value of the vector <code>tlim</code>, even if not selected so on the graph. Defaults to <code>NULL</code>.</li>
+<li><code>n</code>: If <code>y0</code> is left <code>NULL</code> so initial conditions can be specified using <code>locator()</code>, <code>n</code> sets the number of initial conditions to be chosen. Defaults to <code>NULL</code>.</li>
+<li><code>tlim</code>: A vector of length 2 containing the values of the independent variable to begin and end the numerical integration at.</li>
+<li><code>tstep</code>: The value of the independent variable to end numerical integration at. Decreasing <code>tstep</code> theoretically makes the numerical integration more accurate, but increases computation time. Defaults to <code>0.01</code>.</li>
+<li><code>parameters</code>: Parameters of the ODE system, to be passed to <code>deriv</code>. Supplied as a vector; the order of the parameters can be found from the <code>deriv</code> file. Defaults to <code>NULL</code>.</li>
+<li><code>system</code>: Set to either <code>&quot;one.dim&quot;</code> or <code>&quot;two.dim&quot;</code> to indicate the type of system being analysed. Defaults to <code>&quot;two.dim&quot;</code>.</li>
+<li><code>col</code>: The colour(s) to plot the trajectories in. Will be reset accordingly if it is a vector not of the length of the number of initial conditions. Defaults to <code>&quot;black&quot;</code>.</li>
+<li><code>add</code>: Logical. If <code>TRUE</code>, the trajectories added to an existing plot. If <code>FALSE</code>, a new plot is created. Defaults to <code>TRUE</code>.</li>
+<li><code>...</code>: Additional arguments to be passed to <code>plot()</code>.</li>
+</ul>
+<p>Here, the numerical integration is performed by the function ode from the <strong>deSolve</strong> package.</p>
+<p>Returned by <code>trajectory()</code> is a list object containing all of the input variables as well as following components (the exact the exact make up is dependent upon the value of <code>system</code>):</p>
+<ul>
+<li><code>t</code>: A vector containing the values of the independent variable at each integration step.</li>
+<li><code>x</code>: A vector containing the numerically computed values of the first dependent variable at each integration step.</li>
+<li><code>y</code>: A vector containing the numerically computed values of the second dependent variable at each integration step.</li>
+</ul>
+</div>
+<div id="derivative-specification" class="section level3">
+<h3>Derivative Specification</h3>
+<p>In addition to the above functions, <strong>phaseR</strong> contains multiple example one and two dimensional autonomous ODE systems; these are the focus of the later sections. Here, however, we discuss how the user can create their own system.</p>
+<p>In order to be compatible with <strong>phaseR</strong>, systems need to be coded as a list returning function, taking three inputs; <code>t</code>, <code>y</code>, and <code>parameters</code>. Thus the basic skeleton for a one or two dimensional system (with the function named <code>derivative</code>) is as follows:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">derivative &lt;-<span class="st"> </span><span class="cf">function</span>(t, y, parameters) {</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="co"># Enter derivative computation here</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">  <span class="kw">list</span>(dy)</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">}</a></code></pre></div>
+<p>All that needs to be done is to set the named parameters, and the value of <code>dy</code>, with initialisation made where required. However, the approach must change slightly depending upon whether you are setting up a one or two dimensional system. The packages key programs require for points of a two variable system to be presentable as a vector of length 2 (because there are two dependent variables).</p>
+<p>Thus, for a system such as:</p>
+<p><span class="math display">\[ \frac{dx}{dt}=3y,\qquad \frac{dy}{dt}=2x, \]</span></p>
+<p>we would use the following code:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">derivative &lt;-<span class="st"> </span><span class="cf">function</span>(t, y, parameters) {</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">  x     &lt;-<span class="st"> </span>y[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">  y     &lt;-<span class="st"> </span>y[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">  dy    &lt;-<span class="st"> </span><span class="kw">numeric</span>(<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">  dy[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">3</span><span class="op">*</span>y</a>
+<a class="sourceLine" id="cb11-6" data-line-number="6">  dy[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">2</span><span class="op">*</span>x</a>
+<a class="sourceLine" id="cb11-7" data-line-number="7">  <span class="kw">list</span>(dy)</a>
+<a class="sourceLine" id="cb11-8" data-line-number="8">}</a></code></pre></div>
+<p>As a more complex example, consider instead changing the system above to:</p>
+<p><span class="math display">\[ \frac{dx}{dt} = \alpha y,\qquad \frac{dy}{dt}=\beta x, \]</span></p>
+<p>with <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> parameters. The code would then proceed as follows:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">derivative &lt;-<span class="st"> </span><span class="cf">function</span>(t, y, parameters) {</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">  alpha &lt;-<span class="st"> </span>parameters[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">  beta  &lt;-<span class="st"> </span>parameters[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">  x     &lt;-<span class="st"> </span>y[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">  y     &lt;-<span class="st"> </span>y[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb12-6" data-line-number="6">  dy    &lt;-<span class="st"> </span><span class="kw">numeric</span>(<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb12-7" data-line-number="7">  dy[<span class="dv">1</span>] &lt;-<span class="st"> </span>alpha<span class="op">*</span>y</a>
+<a class="sourceLine" id="cb12-8" data-line-number="8">  dy[<span class="dv">2</span>] &lt;-<span class="st"> </span>beta<span class="op">*</span>x</a>
+<a class="sourceLine" id="cb12-9" data-line-number="9">  <span class="kw">list</span>(dy)</a>
+<a class="sourceLine" id="cb12-10" data-line-number="10">}</a></code></pre></div>
+<p>Things are slightly simpler for one dimensional systems, where no such vector considerations need to be made. We would for example create a derivative function for the system:</p>
+<p><span class="math display">\[ \frac{dy}{dt}=a(b-3-y)^2, \]</span></p>
+<p>using the following code:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">derivative &lt;-<span class="st"> </span><span class="cf">function</span>(t, y, parameters) {</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">  a  &lt;-<span class="st"> </span>parameters[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">  b  &lt;-<span class="st"> </span>parameters[<span class="dv">2</span>]</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">  dy &lt;-<span class="st"> </span>a<span class="op">*</span>(b – <span class="dv">3</span> <span class="op">-</span><span class="st"> </span>y)<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">  <span class="kw">list</span>(dy)</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">}</a></code></pre></div>
+</div>
+</div>
+<div id="examples" class="section level2">
+<h2>Examples</h2>
+<p>Within phaseR numerous example systems are available. Here we will analyse some of them, as an indication of how to perform phase plane analysis by hand, and with the help of phaseR. The language is again at times deliberatively repetitive; here to indicate how a general procedure can be used when performing analysis. It is not a useful exercise for me to provide inferior hand drawn plots, only ones produced by phaseR are shown. It is in addition useful to note that the small circles on the trajectory plots indicate initial conditions specified by the user.</p>
+<div id="example2" class="section level3">
+<h3><code>example2()</code></h3>
+<p>We begin with the one dimensional autonomous ODE:</p>
+<p><span class="math display">\[ \frac{dy}{dt}=y(1-y)(2-y), \]</span></p>
+<p>provided in the package as <code>example2()</code>. We begin by plotting the flow field and several trajectories using the following code, adding horizontal lines at any equilibrium points to indicate their presence as well:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">example2.flowField  &lt;-<span class="st"> </span><span class="kw">flowField</span>(example2, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">                                 <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">                                 <span class="dt">system =</span> <span class="st">&quot;one.dim&quot;</span>,</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4">                                 <span class="dt">add =</span> <span class="ot">FALSE</span>, <span class="dt">xlab =</span> <span class="st">&quot;t&quot;</span>)</a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="kw">grid</span>()</a>
+<a class="sourceLine" id="cb14-6" data-line-number="6">example2.nullclines &lt;-<span class="st"> </span><span class="kw">nullclines</span>(example2, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb14-7" data-line-number="7">                                  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb14-8" data-line-number="8">                                  <span class="dt">system =</span> <span class="st">&quot;one.dim&quot;</span>)</a>
+<a class="sourceLine" id="cb14-9" data-line-number="9">example2.trajectory &lt;-<span class="st"> </span><span class="kw">trajectory</span>(example2,</a>
+<a class="sourceLine" id="cb14-10" data-line-number="10">                                  <span class="dt">y0 =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>),</a>
+<a class="sourceLine" id="cb14-11" data-line-number="11">                                  <span class="dt">tlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb14-12" data-line-number="12">                                  <span class="dt">system =</span> <span class="st">&quot;one.dim&quot;</span>)</a></code></pre></div>
+<p>The plot produced is as appears on the following page:</p>
+<p>Thus three equilibrium points have been identified; appearing to be y_*=0, 1 and 2. Indeed if we set the RHS of our ODE to zero we can identify these three points as the equilibrium points analytically:</p>
+<p><span class="math display">\[ y_* (1-y_* )(2-y_* )=0 \Longrightarrow y_*=0,1,2. \]</span></p>
+<p>Plotting the phase portrait we find that <span class="math inline">\(y_*=0\)</span> and <span class="math inline">\(y_*=2\)</span> are unstable, whilst <span class="math inline">\(y_*=1\)</span> is stable; as is also apparent from the flow field and trajectories above:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">example2.phasePortrait &lt;-<span class="st"> </span><span class="kw">phasePortrait</span>(example2,</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">                                        <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">2.5</span>))</a></code></pre></div>
+<p>Alternatively, using the Taylor Series approach to determine stability we have:</p>
+<p><span class="math display">\[ \frac{d}{dy}\left.\left(\frac{dy}{dt}\right)\right|_{y=y_*} = 3y_*^2 - 6y_* + 2 = \begin{cases} 2 &amp;: \ y_*=0,\\ -1 &amp;: \ y_*=1,\\ 2 &amp;: \ y_*=2.  \end{cases} \]</span> Thus we draw the same conclusion as from the phase portrait.</p>
+<p>Finally, we can confirm our Taylor analysis using stability and the following code:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">example2.stability<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">stability</span>(example2, <span class="dt">ystar =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">                                  <span class="dt">system =</span> <span class="st">&quot;one.dim&quot;</span>)</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3">example2.stability<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">stability</span>(example2, <span class="dt">ystar =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb16-4" data-line-number="4">                                  <span class="dt">system =</span> <span class="st">&quot;one.dim&quot;</span>)</a>
+<a class="sourceLine" id="cb16-5" data-line-number="5">example2.stability<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">stability</span>(example2, <span class="dt">ystar =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb16-6" data-line-number="6">                                  <span class="dt">system =</span> <span class="st">&quot;one.dim&quot;</span>)</a></code></pre></div>
+</div>
+<div id="logistic" class="section level3">
+<h3><code>logistic()</code></h3>
+<p>The logistic growth model is frequently used in Biology to model the growth of a population under density dependence. It is given by:</p>
+<p><span class="math display">\[ \frac{dy}{dt} = \beta y\left(1-\frac{y}{K}\right). \]</span></p>
+<p>With the following code, we can plot the flow field and several trajectories (for the case <span class="math inline">\(\beta=1\)</span> and <span class="math inline">\(K=2\)</span>), as well as adding horizontal lines at any equilibrium points to indicate their presence:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">logistic.flowField  &lt;-<span class="st"> </span><span class="kw">flowField</span>(logistic, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">                                 <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb17-3" data-line-number="3">                                 <span class="dt">parameters =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb17-4" data-line-number="4">                                 <span class="dt">system =</span> <span class="st">&quot;one.dim&quot;</span>,</a>
+<a class="sourceLine" id="cb17-5" data-line-number="5">                                 <span class="dt">add =</span> <span class="ot">FALSE</span>, <span class="dt">xlab =</span> <span class="st">&quot;t&quot;</span>)</a>
+<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="kw">grid</span>()</a>
+<a class="sourceLine" id="cb17-7" data-line-number="7">logistic.nullclines &lt;-<span class="st"> </span><span class="kw">nullclines</span>(logistic, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb17-8" data-line-number="8">                                  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb17-9" data-line-number="9">                                  <span class="dt">parameters =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb17-10" data-line-number="10">                                  <span class="dt">system =</span> <span class="st">&quot;one.dim&quot;</span>)</a>
+<a class="sourceLine" id="cb17-11" data-line-number="11">logistic.trajectory &lt;-<span class="st"> </span><span class="kw">trajectory</span>(logistic,</a>
+<a class="sourceLine" id="cb17-12" data-line-number="12">                                  <span class="dt">y0 =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>),</a>
+<a class="sourceLine" id="cb17-13" data-line-number="13">                                  <span class="dt">tlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb17-14" data-line-number="14">                                  <span class="dt">parameters =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb17-15" data-line-number="15">                                  <span class="dt">system =</span> <span class="st">&quot;one.dim&quot;</span>)</a></code></pre></div>
+<p>Again, two equilibrium points have been identified. We can confirm their location in the general case analytically by setting the RHS of the ODE to zero:</p>
+<p><span class="math display">\[ \beta y_* \left(1-\frac{y_*}{K}\right)=0 \Longrightarrow y_*=0,K. \]</span></p>
+<p>Plotting the phase portrait we can observe that <span class="math inline">\(y_*=0\)</span> is unstable and <span class="math inline">\(y_*=K\)</span> stable, for the case <span class="math inline">\(\beta=1\)</span> and <span class="math inline">\(K=2\)</span>:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">logistic.phasePortrait &lt;-<span class="st"> </span><span class="kw">phasePortrait</span>(logistic,</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">                                        <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">2.5</span>),</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3">                                        <span class="dt">parameters =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</a></code></pre></div>
+<p>Finally, if we use our Taylor Series method we can draw this same conclusion:</p>
+<p><span class="math display">\[ \frac{d}{dy}\left.\left(\frac{dy}{dt}\right)\right|_{y=y_*} = \beta - \frac{2\beta y_*}{K} = \begin{cases} \beta &amp;: \ y_*=0,\\ -\beta &amp;: \ y_*=K.  \end{cases} \]</span></p>
+<p>So for <span class="math inline">\(\beta=1\)</span> and <span class="math inline">\(K=2\)</span>, we have a stable point at <span class="math inline">\(y=2\)</span>. Moreover, from this we can see that the point <span class="math inline">\(y=K\)</span> will in general be stable provided <span class="math inline">\(\beta&gt;0\)</span>.</p>
+<p>The following code verifies our findings for the specific case studied above:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">logistic.stability<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">stability</span>(logistic, <span class="dt">ystar =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb19-2" data-line-number="2">                                  <span class="dt">parameters =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb19-3" data-line-number="3">                                  <span class="dt">system =</span> <span class="st">&quot;one.dim&quot;</span>)</a>
+<a class="sourceLine" id="cb19-4" data-line-number="4">logistic.stability<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">stability</span>(logistic, <span class="dt">ystar =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb19-5" data-line-number="5">                                  <span class="dt">parameters =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</a>
+<a class="sourceLine" id="cb19-6" data-line-number="6">                                  <span class="dt">system =</span> <span class="st">&quot;one.dim&quot;</span>)</a></code></pre></div>
+</div>
+<div id="example4" class="section level3">
+<h3><code>example4()</code></h3>
+<p>We now turn our attention to linear two dimensional autonomous ODE systems. Here we consider the coupled system given by:</p>
+<p><span class="math display">\[ \frac{dx}{dt}=-x,\qquad \frac{dy}{dt}=4x. \]</span></p>
+<p>This is provided in the package as <code>example4()</code>. We can find the <span class="math inline">\(x\)</span>- and <span class="math inline">\(y\)</span>-nullclines by setting the derivatives to zero as follows:</p>
+<p><span class="math display">\[ \begin{align} x &amp;∶ -x=0 \Longrightarrow x=0,\\ y &amp;∶ 4x=0 \Longrightarrow x=0.\end{align}\]</span></p>
+<p>Thus the nullclines are the same. This means we have a line of equilibrium points given by <span class="math inline">\(x=0\)</span>. To see why this is the case, and there is no unique solution, we examine the Jacobian of our system:</p>
+<p><span class="math display">\[ J = \begin{pmatrix} -1 &amp; 0 \\ 4 &amp; 0 \end{pmatrix}. \]</span> Thus the determinant of <span class="math inline">\(J\)</span> is zero, and we have a singular case of the general linear two dimensional system; the Taylor approach cannot be used to classify <span class="math inline">\((0,0)\)</span>.</p>
+<p>Thus here, in order to determine whether the points along the line <span class="math inline">\(x=0\)</span> are stable or not, we plot the nullclines, the velocity field, and add several trajectories:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">example4.flowField  &lt;-<span class="st"> </span><span class="kw">flowField</span>(example4, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">                                 <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="dt">add =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="kw">grid</span>()</a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">example4.nullclines &lt;-<span class="st"> </span><span class="kw">nullclines</span>(example4, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">                                  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>))</a>
+<a class="sourceLine" id="cb20-6" data-line-number="6">y0                  &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">-1</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">-2</span>, <span class="dv">2</span>, <span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb20-7" data-line-number="7">                                <span class="dv">-3</span>, <span class="dv">-3</span>, <span class="dv">-4</span>), <span class="dt">nrow =</span> <span class="dv">6</span>,</a>
+<a class="sourceLine" id="cb20-8" data-line-number="8">                              <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb20-9" data-line-number="9">example4.trajectory &lt;-<span class="st"> </span><span class="kw">trajectory</span>(example4, <span class="dt">y0 =</span> y0,</a>
+<a class="sourceLine" id="cb20-10" data-line-number="10">                                  <span class="dt">tlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>))</a></code></pre></div>
+<p>Thus we observe the trajectories moving towards the line x=0; indicative of stability. This example illustrates that plotting trajectories can be useful when the Taylor approach fails.</p>
+</div>
+<div id="example5" class="section level3">
+<h3><code>example5()</code></h3>
+<p>We will now examine a further example of a linear two dimensional system, given by:</p>
+<p><span class="math display">\[ \frac{dx}{dt}=2x+y,\qquad \frac{dy}{dt}=2x-y. \]</span></p>
+<p>It is provided in the package as <code>example5()</code>. Again we begin by setting the derivatives to zero to identify the nullclines:</p>
+<p><span class="math display">\[ \begin{align} x &amp;∶ 2x+y=0 \Longrightarrow y=-2x,\\
+y &amp;∶ 2x-y=0\Longrightarrow y=2x.  \end{align} \]</span></p>
+<p>From these two equations it is easy to see that the only equilibrium point is at <span class="math inline">\((0,0)\)</span>. We begin by plotting the nullclines, velocity field and several trajectories:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">example5.flowField  &lt;-<span class="st"> </span><span class="kw">flowField</span>(example5, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), </a>
+<a class="sourceLine" id="cb21-2" data-line-number="2">                                 <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="dt">add =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"><span class="kw">grid</span>()</a>
+<a class="sourceLine" id="cb21-4" data-line-number="4">example5.nullclines &lt;-<span class="st"> </span><span class="kw">nullclines</span>(example5, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), </a>
+<a class="sourceLine" id="cb21-5" data-line-number="5">                                  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb21-6" data-line-number="6">y0                  &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">-1</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">-2</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">3</span>,                    </a>
+<a class="sourceLine" id="cb21-7" data-line-number="7">                                <span class="dv">0</span>, <span class="dv">-3</span>), <span class="dt">nrow =</span> <span class="dv">6</span>, <span class="dt">ncol =</span> <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb21-8" data-line-number="8">                              <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb21-9" data-line-number="9">example5.trajectory &lt;-<span class="st"> </span><span class="kw">trajectory</span>(example5, <span class="dt">y0 =</span> y0, <span class="dt">tlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>))</a>
+<a class="sourceLine" id="cb21-10" data-line-number="10">example5.manifolds  &lt;-<span class="st"> </span><span class="kw">drawManifolds</span>(example5, <span class="dt">y0 =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</a></code></pre></div>
+<p>From the trajectories it appears that <span class="math inline">\((0,0)\)</span> is a saddle point. To verify this we compute the Jacobian of the system:</p>
+<p><span class="math display">\[ J = \begin{pmatrix} 2 &amp; 1 \\ 2 &amp; -1 \end{pmatrix}.  \]</span> Thus we have <span class="math inline">\(T=1\)</span>, <span class="math inline">\(\Delta=-4\)</span> and <span class="math inline">\(T^2-4\Delta=17\)</span>. From our classification rules this confirms that <span class="math inline">\((0,0)\)</span> is indeed a saddle. Finally, we verify this analysis using stability and the following code:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">example5.stability &lt;-<span class="st"> </span><span class="kw">stability</span>(example5, <span class="dt">ystar =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</a></code></pre></div>
+</div>
+<div id="example8" class="section level3">
+<h3><code>example8()</code></h3>
+<p>As a final example of a linear two dimensional system, we will examine:</p>
+<p><span class="math display">\[ \frac{dx}{dt}=y,\qquad \frac{dy}{dt}=-x-y, \]</span></p>
+<p>available in the package as <code>example8()</code>. Setting the derivatives to zero, we first locate the nullclines:</p>
+<p><span class="math display">\[ \begin{align} x &amp;∶ y = 0,\\ y &amp;∶ -x-y=0\Longrightarrow y=-x.\end{align} \]</span></p>
+<p>From this, again we can identify the one equilibrium is at <span class="math inline">\((0,0)\)</span>. We now plot the nullclines and velocity field, along with several trajectories:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">example8.flowField  &lt;-<span class="st"> </span><span class="kw">flowField</span>(example8, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">                                 <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="dt">add =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb23-3" data-line-number="3"><span class="kw">grid</span>()</a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">example8.nullclines &lt;-<span class="st"> </span><span class="kw">nullclines</span>(example8, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>), </a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">                                  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">y0                  &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">2</span>, <span class="dv">-2</span>, <span class="dv">-2</span>, <span class="dv">-2</span>),  </a>
+<a class="sourceLine" id="cb23-7" data-line-number="7">                              <span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb23-8" data-line-number="8">example8.trajectory &lt;-<span class="st"> </span><span class="kw">trajectory</span>(example8, <span class="dt">y0 =</span> y0,</a>
+<a class="sourceLine" id="cb23-9" data-line-number="9">                                  <span class="dt">tlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>))</a></code></pre></div>
+<p>It appears from the plot that <span class="math inline">\((0,0)\)</span> is a stable focus, but we can verify that this is the case using the Jacobian:</p>
+<p><span class="math display">\[ J = \begin{pmatrix} 0 &amp; 1 \\ -1 &amp; -1 \end{pmatrix}. \]</span> Thus we have <span class="math inline">\(T=-1\)</span>, <span class="math inline">\(\Delta=1\)</span> and <span class="math inline">\(T^2-4\Delta=-3\)</span>; indeed <span class="math inline">\((0,0)\)</span> is a stable focus. Finally, we confirm our stability analysis using <strong>phaseR</strong>:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="op">&gt;</span><span class="st"> </span>example8.stability &lt;-<span class="st"> </span><span class="kw">stability</span>(example8, <span class="dt">ystar =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</a></code></pre></div>
+</div>
+<div id="example11" class="section level3">
+<h3><code>example11()</code></h3>
+<p>We now advance to a non-linear example of a two dimensional system, given by:</p>
+<p><span class="math display">\[ \frac{dx}{dt}=x(3-x-2y),\qquad \frac{dy}{dt}=y(2-x-y),\]</span></p>
+<p>and provided in the package as <code>example11()</code>. As always, we begin by setting the derivatives to zero to locate the nullclines. First, for <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[ x(3-x-2y)=0\Longrightarrow x=0 \text{ or } y=\frac{1}{2}(3-x). \]</span> Then for <span class="math inline">\(y\)</span>:</p>
+<p><span class="math display">\[ y(2-x-y)=0\Longrightarrow x=0 \text{ or } y=2-x. \]</span></p>
+<p>Here, is often the case for non-linear systems, there are here multiple equilibria, which we find via the intersections of the above nullclines. Easily, we can identify <span class="math inline">\((0,0)\)</span> and <span class="math inline">\((0,2)\)</span> and <span class="math inline">\((3,0)\)</span>. The final equilibrium point comes from the intersection of the two more complex nullclines:</p>
+<p><span class="math display">\[ \frac{1}{2}(3-x_*)=2-x_*\Longrightarrow x_*=1\Longrightarrow y_*=1,\]</span></p>
+<p>i.e., the point <span class="math inline">\((1,1)\)</span>. We will determine the stability of these four equilibria from the general case Jacobian of the system:</p>
+<p><span class="math display">\[ J = \begin{pmatrix} 3 - 2x_* - 2y_* &amp; -2x_* \\ -y_* &amp; 2 - x_* - 2y_*  \end{pmatrix}. \]</span></p>
+<p>In the case of multiple equilibria, it is then often a good idea to present the classification in a table:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Equilibrium Point</th>
+<th align="right"><span class="math inline">\(\Delta\)</span></th>
+<th align="right"><span class="math inline">\(T^2-4\Delta\)</span></th>
+<th align="right"><span class="math inline">\(T\)</span></th>
+<th align="right">Classification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right"><span class="math inline">\((0,0)\)</span></td>
+<td align="right"><span class="math inline">\(6\)</span></td>
+<td align="right"><span class="math inline">\(1\)</span></td>
+<td align="right"><span class="math inline">\(5\)</span></td>
+<td align="right">Unstable node</td>
+</tr>
+<tr class="even">
+<td align="right"><span class="math inline">\((0,2)\)</span></td>
+<td align="right"><span class="math inline">\(8\)</span></td>
+<td align="right"><span class="math inline">\(4\)</span></td>
+<td align="right"><span class="math inline">\(-6\)</span></td>
+<td align="right">Stable node</td>
+</tr>
+<tr class="odd">
+<td align="right"><span class="math inline">\((1,1)\)</span></td>
+<td align="right"><span class="math inline">\(-1\)</span></td>
+<td align="right"><span class="math inline">\(8\)</span></td>
+<td align="right"><span class="math inline">\(-2\)</span></td>
+<td align="right">Saddle</td>
+</tr>
+<tr class="even">
+<td align="right"><span class="math inline">\((3,0)\)</span></td>
+<td align="right"><span class="math inline">\(3\)</span></td>
+<td align="right"><span class="math inline">\(4\)</span></td>
+<td align="right"><span class="math inline">\(-4\)</span></td>
+<td align="right">Stable node</td>
+</tr>
+</tbody>
+</table>
+<p>To summarise all of the above analysis we produce a plot of the nullclines, velocity field and trajectories using <strong>phaseR</strong>:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">example11.flowField  &lt;-<span class="st"> </span><span class="kw">flowField</span>(example11, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>), </a>
+<a class="sourceLine" id="cb25-2" data-line-number="2">                                  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="dt">add =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="kw">grid</span>()</a>
+<a class="sourceLine" id="cb25-4" data-line-number="4">example11.nullclines &lt;-<span class="st"> </span><span class="kw">nullclines</span>(example11, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>),                                                            <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>), <span class="dt">points =</span> <span class="dv">500</span>)</a>
+<a class="sourceLine" id="cb25-5" data-line-number="5">y0                   &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">-1</span>, <span class="dv">-1</span>, <span class="dv">-2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">-1</span>), </a>
+<a class="sourceLine" id="cb25-6" data-line-number="6">                               <span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb25-7" data-line-number="7">example11.trajectory &lt;-<span class="st"> </span><span class="kw">trajectory</span>(example11, <span class="dt">y0 =</span> y0,</a>
+<a class="sourceLine" id="cb25-8" data-line-number="8">                                   <span class="dt">tlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>))</a></code></pre></div>
+<p>In addition, we verify the stability results using stability:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">example11.stability<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">stability</span>(example11, <span class="dt">ystar =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb26-2" data-line-number="2">example11.stability<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">stability</span>(example11, <span class="dt">ystar =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">example11.stability<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">stability</span>(example11, <span class="dt">ystar =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb26-4" data-line-number="4">                                   <span class="dt">h =</span> <span class="fl">1e-8</span>)</a>
+<a class="sourceLine" id="cb26-5" data-line-number="5">example11.stability<span class="fl">.4</span> &lt;-<span class="st"> </span><span class="kw">stability</span>(example11, <span class="dt">ystar =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">0</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">example11.manifolds  &lt;-<span class="st"> </span><span class="kw">drawManifolds</span>(example11, <span class="dt">y0 =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</a></code></pre></div>
+</div>
+<div id="example12" class="section level3">
+<h3><code>example12()</code></h3>
+<p>Moving on, we now consider a further non-linear example of a two dimensional system:</p>
+<p><span class="math display">\[ \frac{dx}{dt}=x-y,\qquad \frac{dy}{dt}=x^2+y^2-2. \]</span> Provided in <strong>phaseR</strong> as <code>example12()</code>. As usual, we first locate the nullclines:</p>
+<p><span class="math display">\[ \begin{align} x &amp;∶ x-y=0\Longrightarrow y=x,\\ y &amp;∶ x^2+y^2-2=0\Longrightarrow x^2+y^2=2. \end{align} \]</span> From this, we substitute one condition into another to locate the equilibria:</p>
+<p><span class="math display">\[ x_*^2+x_*^2=2 \Longrightarrow x_*^2=1\Longrightarrow x_*=±1=y_*, \]</span></p>
+<p>therefore we have equilibria at <span class="math inline">\((1,1)\)</span> and <span class="math inline">\((-1,-1)\)</span>.</p>
+<p>Continue by plotting the nullclines, velocity field and several trajectories:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">example12.flowField  &lt;-<span class="st"> </span><span class="kw">flowField</span>(example12, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">                                  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>), <span class="dt">add =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="kw">grid</span>()</a>
+<a class="sourceLine" id="cb28-4" data-line-number="4">example12.nullclines &lt;-<span class="st"> </span><span class="kw">nullclines</span>(example12, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>), </a>
+<a class="sourceLine" id="cb28-5" data-line-number="5">                                   <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb28-6" data-line-number="6">                                   <span class="dt">points =</span> <span class="dv">500</span>)</a>
+<a class="sourceLine" id="cb28-7" data-line-number="7">y0                   &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">-3</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">-3</span>), </a>
+<a class="sourceLine" id="cb28-8" data-line-number="8">                               <span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">ncol =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb28-9" data-line-number="9">                               <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb28-10" data-line-number="10">example12.trajectory &lt;-<span class="st"> </span><span class="kw">trajectory</span>(example12, <span class="dt">y0 =</span> y0,</a>
+<a class="sourceLine" id="cb28-11" data-line-number="11">                                   <span class="dt">tlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>))</a></code></pre></div>
+<p>It appears that both of the equilibria are unstable, but to classify them accurately we will use the Jacobian:</p>
+<p><span class="math display">\[ J = \begin{pmatrix} 1 &amp; -1 \\ 2x_* &amp; 2y_* \end{pmatrix}. \]</span></p>
+<p>Therefore, we have:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Equilibrium Point</th>
+<th align="right"><span class="math inline">\(\Delta\)</span></th>
+<th align="right"><span class="math inline">\(T^2-4\Delta\)</span></th>
+<th align="right"><span class="math inline">\(T\)</span></th>
+<th align="right">Classification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right"><span class="math inline">\((1,1)\)</span></td>
+<td align="right"><span class="math inline">\(4\)</span></td>
+<td align="right"><span class="math inline">\(-7\)</span></td>
+<td align="right"><span class="math inline">\(3\)</span></td>
+<td align="right">Unstable Focus</td>
+</tr>
+<tr class="even">
+<td align="right"><span class="math inline">\((-1,-1)\)</span></td>
+<td align="right"><span class="math inline">\(-3\)</span></td>
+<td align="right"><span class="math inline">\(13\)</span></td>
+<td align="right"><span class="math inline">\(-1\)</span></td>
+<td align="right">Saddle</td>
+</tr>
+</tbody>
+</table>
+<p>Indeed it was the case that both points were unstable. Finally, we verify this analysis using stability:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">example12.stability<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">stability</span>(example12, <span class="dt">ystar =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2">example12.stability<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">stability</span>(example12,</a>
+<a class="sourceLine" id="cb29-3" data-line-number="3">                                   <span class="dt">ystar =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">-1</span>), <span class="dt">h =</span> <span class="fl">1e-8</span>)</a></code></pre></div>
+</div>
+<div id="simplependulum" class="section level3">
+<h3><code>simplePendulum()</code></h3>
+<p>This next example comes from a real life modelling scenario; the equation for a simple pendulum (i.e. no damping force) acting under gravity can be written in the form:</p>
+<p><span class="math display">\[ \frac{dx}{dt}=y,\qquad \frac{dy}{dt}=-\frac{g}{l}\sin x. \]</span> It is provided in the model as <code>simplePendulum()</code>. We first set the gradients to zero to locate the nullclines:</p>
+<p><span class="math display">\[ \begin{align} x &amp;∶ y=0,\\ y &amp;∶ -\frac{g}{l}\sin x = 0 \Longrightarrow x=n\pi, \ \forall n\in\mathbb{N} .\end{align}\]</span> From this we can identify that equilibria will be present at all points <span class="math inline">\((0,n\pi)\)</span>, where <span class="math inline">\(n\)</span> is an integer. Using this we produce our familiar plot, choosing the case <span class="math inline">\(l=5\)</span>:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">simplePendulum.flowField  &lt;-<span class="st"> </span><span class="kw">flowField</span>(simplePendulum,</a>
+<a class="sourceLine" id="cb30-2" data-line-number="2">                                       <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">7</span>, <span class="dv">7</span>),</a>
+<a class="sourceLine" id="cb30-3" data-line-number="3">                                       <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">7</span>, <span class="dv">7</span>),</a>
+<a class="sourceLine" id="cb30-4" data-line-number="4">                                       <span class="dt">parameters =</span> <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb30-5" data-line-number="5">                                       <span class="dt">add =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb30-6" data-line-number="6"><span class="kw">grid</span>()</a>
+<a class="sourceLine" id="cb30-7" data-line-number="7">simplePendulum.nullclines &lt;-<span class="st"> </span><span class="kw">nullclines</span>(simplePendulum,</a>
+<a class="sourceLine" id="cb30-8" data-line-number="8">                                        <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">7</span>, <span class="dv">7</span>),</a>
+<a class="sourceLine" id="cb30-9" data-line-number="9">                                        <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">7</span>, <span class="dv">7</span>),</a>
+<a class="sourceLine" id="cb30-10" data-line-number="10">                                        <span class="dt">parameters =</span> <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb30-11" data-line-number="11">                                        <span class="dt">points =</span> <span class="dv">500</span>)</a>
+<a class="sourceLine" id="cb30-12" data-line-number="12">y0                        &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">-6</span>, <span class="dv">1</span>, <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb30-13" data-line-number="13">                                      <span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">-3</span>), <span class="dt">nrow =</span> <span class="dv">5</span>, </a>
+<a class="sourceLine" id="cb30-14" data-line-number="14">                                    <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb30-15" data-line-number="15">simplePendulum.trajectory &lt;-<span class="st"> </span><span class="kw">trajectory</span>(simplePendulum,</a>
+<a class="sourceLine" id="cb30-16" data-line-number="16">                                        <span class="dt">y0 =</span> y0,</a>
+<a class="sourceLine" id="cb30-17" data-line-number="17">                                        <span class="dt">tlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb30-18" data-line-number="18">                                        <span class="dt">parameters =</span> <span class="dv">5</span>)</a></code></pre></div>
+<p>We then turn to the Jacobian in order to determine the stability of the equilibria:</p>
+<p><span class="math display">\[ \begin{align} J &amp;= \begin{pmatrix} 0 &amp; 1 \\ -\frac{g}{l}\cos x_* &amp; 0 \end{pmatrix},\\ \Longrightarrow T &amp;= 0, \Delta=\frac{g}{l}\cos x_*, T^2-4\Delta=-\frac{4g}{l}\cos x_*.\end{align} \]</span></p>
+<p>Therefore, for <span class="math inline">\(x_*=2n\pi\)</span>, <span class="math inline">\(\Delta\)</span> is positive and the equilibria is a centre. However, for <span class="math inline">\(x_*=(2n+1)\pi\)</span>, <span class="math inline">\(\Delta\)</span> is negative and the equilibria is a saddle. We can confirm this for the points <span class="math inline">\((0,0)\)</span> and <span class="math inline">\((\pi,0)\)</span> using <strong>phaseR</strong>:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">simplePendulum.stability<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">stability</span>(simplePendulum,</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">                                        <span class="dt">ystar =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb31-3" data-line-number="3">                                        <span class="dt">parameters =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb31-4" data-line-number="4">simplePendulum.stability<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">stability</span>(simplePendulum,</a>
+<a class="sourceLine" id="cb31-5" data-line-number="5">                                        <span class="dt">ystar =</span> <span class="kw">c</span>(pi, <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb31-6" data-line-number="6">                                        <span class="dt">parameters =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb31-7" data-line-number="7">simplePendulum.manifolds   &lt;-<span class="st"> </span><span class="kw">drawManifolds</span>(simplePendulum,</a>
+<a class="sourceLine" id="cb31-8" data-line-number="8">                                            <span class="dt">y0 =</span> <span class="kw">c</span>(pi, <span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb31-9" data-line-number="9">                                            <span class="dt">parameters =</span> <span class="dv">5</span>)</a></code></pre></div>
+</div>
+<div id="vanderpol" class="section level3">
+<h3><code>vanDerPol()</code></h3>
+<p>As a final example, we again turn to a real physical system. The van Der Pol oscillator is a classic example in physics, describing a non-conservative oscillator with non-linear damping. It can be written in the form:</p>
+<p><span class="math display">\[ \frac{dx}{dt}=y,\qquad \frac{dy}{dt}=\mu(1-x^2)y-x. \]</span></p>
+<p>It is provided in the package as <code>vanDerPol()</code>. We consider only the case of <span class="math inline">\(\mu&gt;0\)</span>, i.e., when the oscillator is damped. The nullclines can then be computed as:</p>
+<p><span class="math display">\[ \begin{align} x &amp;∶ y=0,\\ y &amp;∶ \mu(1-x^2)y-x=0\Longrightarrow y = \frac{x}{μ(1-x^2)}. \end{align}\]</span> The form of these nullclines indicates that the only equilibrium point is <span class="math inline">\((0,0)\)</span>. The stability of this, we again find from the Jacobian:</p>
+<p><span class="math display">\[ \begin{align} J &amp;= \begin{pmatrix} 0 &amp; 1 \\ -2\mu x_*y_* - 1 &amp; \mu(1 - x_*^2) \end{pmatrix} = \left.\begin{pmatrix} 0 &amp; 1 \\ -1 &amp; \mu \end{pmatrix}\right|_{(0,0)},\\ \Longrightarrow T &amp;= \mu,\ \Delta = 1,\ T^2 - 4\Delta=\mu^2 - 4.\end{align}  \]</span></p>
+<p>Thus if <span class="math inline">\(\mu&gt;2\)</span> then we will have an unstable node, whereas for <span class="math inline">\(\mu&lt;2\)</span> we will have an unstable focus. We take the cases <span class="math inline">\(\mu=1\)</span> and <span class="math inline">\(\mu=3\)</span> as examples to indicate this using <strong>phaseR</strong>:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">vanDerPol.stability<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">stability</span>(vanDerPol, <span class="dt">ystar =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="op">+</span><span class="st"> </span><span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb32-2" data-line-number="2">                                   <span class="dt">parameters =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb32-3" data-line-number="3">vanDerPol.stability<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">stability</span>(vanDerPol, <span class="dt">ystar =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="op">+</span><span class="st"> </span><span class="dv">0</span>),</a>
+<a class="sourceLine" id="cb32-4" data-line-number="4">                                   <span class="dt">parameters =</span> <span class="dv">1</span>)</a></code></pre></div>
+<p>However, when we plot trajectories along with the nullclines and velocity field we find:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">vanDerPol.flowField  &lt;-<span class="st"> </span><span class="kw">flowField</span>(vanDerPol, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>), </a>
+<a class="sourceLine" id="cb33-2" data-line-number="2">                                  <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb33-3" data-line-number="3">                                  <span class="dt">parameters =</span> <span class="dv">3</span>, <span class="dt">add =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb33-4" data-line-number="4"><span class="kw">grid</span>()</a>
+<a class="sourceLine" id="cb33-5" data-line-number="5">vanDerPol.nullclines &lt;-<span class="st"> </span><span class="kw">nullclines</span>(vanDerPol, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>), </a>
+<a class="sourceLine" id="cb33-6" data-line-number="6">                                   <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb33-7" data-line-number="7">                                   <span class="dt">parameters =</span> <span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb33-8" data-line-number="8">                                   <span class="dt">points =</span> <span class="dv">500</span>)</a>
+<a class="sourceLine" id="cb33-9" data-line-number="9">y0                   &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>),</a>
+<a class="sourceLine" id="cb33-10" data-line-number="10">                               <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">ncol =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb33-11" data-line-number="11">                               <span class="dt">byrow =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb33-12" data-line-number="12">vanDerPol.trajectory &lt;-<span class="st"> </span><span class="kw">trajectory</span>(vanDerPol, <span class="dt">y0 =</span> y0,</a>
+<a class="sourceLine" id="cb33-13" data-line-number="13">                                   <span class="dt">tlim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb33-14" data-line-number="14">                                   <span class="dt">parameters =</span> <span class="dv">3</span>)</a></code></pre></div>
+<p>It appears that the solutions are bounded, and indeed oscillate as the name suggestions. This oscillating behaviour is an example of a limit cycle. This characterisation; where trajectories are pushed away near the equilibria (hence the classification as unstable), but move towards it far away, is typical of limit cycles.</p>
+</div>
+</div>
+<div id="additional-available-systems" class="section level2">
+<h2>Additional available systems</h2>
+<p>As well as those studied earlier, numerous other derivative functions for one and two dimensional systems are available in <strong>phaseR</strong>. This chapter provides a list of them. In some instances further explanation of the models is provided in their respective exercises at the end of this vignette. Again, parameters are specified in the order they appear in the model; for ultimate clarify see the help page for the function with R.</p>
+<div id="exponential" class="section level3">
+<h3><code>exponential()</code></h3>
+<p>The exponential growth model, often used in Biology and Chemistry to model growth and decay of biological or chemical species, is given by:</p>
+<p><span class="math display">\[ \frac{dy}{dt} = \beta y. \]</span></p>
+</div>
+<div id="monomolecular" class="section level3">
+<h3><code>monomolecular()</code></h3>
+<p>The monomolecular growth model, often used to model the heating and cooling of objects, or to model physiological processes, is given by</p>
+<p><span class="math display">\[ \frac{dy}{dt} = \beta(K-y). \]</span></p>
+</div>
+<div id="vonbertalanffy" class="section level3">
+<h3><code>vonBertalanffy()</code></h3>
+<p>The von Bertalanffy model, often used in Biology to model the growth of organisms, is given by</p>
+<p><span class="math display">\[ \frac{dy}{dt} = \alpha y^{2/3} - \beta y. \]</span></p>
+</div>
+<div id="example3" class="section level3">
+<h3><code>example3()</code></h3>
+<p>Function <code>example3()</code> is a linear two dimensional system given by</p>
+<p><span class="math display">\[ \frac{dx}{dt}=-x,\ \frac{dy}{dt} = -4x. \]</span></p>
+</div>
+<div id="example6" class="section level3">
+<h3><code>example6()</code></h3>
+<p>Function <code>example6()</code> is a linear two dimensional system given by</p>
+<p><span class="math display">\[ \frac{dx}{dt}=x+2y,\ \frac{dy}{dt} = -2x+y. \]</span></p>
+</div>
+<div id="example7" class="section level3">
+<h3><code>example7()</code></h3>
+<p>Function <code>example7()</code> is a linear two dimensional system given by</p>
+<p><span class="math display">\[ \frac{dx}{dt}=-x-y,\ \frac{dy}{dt} = 4x+y. \]</span></p>
+</div>
+<div id="example9" class="section level3">
+<h3><code>example9()</code></h3>
+<p>Function <code>example9()</code> is a linear two dimensional system given by</p>
+<p><span class="math display">\[ \frac{dx}{dt}=-2x+3y,\ \frac{dy}{dt} = 7x+6y. \]</span></p>
+</div>
+<div id="example10" class="section level3">
+<h3><code>example10()</code></h3>
+<p>Function <code>example10()</code> is a non-linear two dimensional system given by</p>
+<p><span class="math display">\[ \frac{dx}{dt}=-x+x^3,\ \frac{dy}{dt} = -2y. \]</span></p>
+</div>
+<div id="example13" class="section level3">
+<h3><code>example13()</code></h3>
+<p>Function <code>example13()</code> is a non-linear two dimensional system given by:</p>
+<p><span class="math display">\[ \frac{dx}{dt} = 2-x^2-y^2,\ \frac{dy}{dt} = x^2-y^2. \]</span></p>
+</div>
+<div id="example14" class="section level3">
+<h3><code>example14()</code></h3>
+<p>Function <code>example14()</code> is a non-linear two dimensional system given by:</p>
+<p><span class="math display">\[ \frac{dx}{dt} = x^2-y-10,\ \frac{dy}{dt} = -3x^2+xy. \]</span></p>
+</div>
+<div id="example15" class="section level3">
+<h3><code>example15()</code></h3>
+<p>Function <code>example15()</code> is a non-linear two dimensional system given by:</p>
+<p><span class="math display">\[ \frac{dx}{dt} = x^2-3xy+2x,\ \frac{dy}{dt} = x+y-1. \]</span></p>
+</div>
+<div id="lindemannmechanism" class="section level3">
+<h3><code>lindemannMechanism()</code></h3>
+<p>The non-dimensional version of the Lindemann Mechanism, used for gas-phase unimolecular reaction modelling, can be written in the form</p>
+<p><span class="math display">\[ \frac{dx}{dt} = -x^2 + \alpha xy,\ \frac{dy}{dt} = x^2 - \alpha xy - y. \]</span></p>
+</div>
+<div id="sir" class="section level3">
+<h3><code>SIR()</code></h3>
+<p>The SIR model for the spread of an infectious disease can be written in the form</p>
+<p><span class="math display">\[ \frac{dx}{dt} = -\beta xy,\ \frac{dy}{dt} = βxy-νy. \]</span></p>
+</div>
+<div id="lotkavolterra" class="section level3">
+<h3><code>lotkaVolterra()</code></h3>
+<p>The Lotka-Volterra model, used to model interacting species of predator and prey in Biology, is given by</p>
+<p><span class="math display">\[ \frac{dx}{dt} = \lambda x - \epsilon xy,\ \frac{dy}{dt} = -\delta y + \eta xy. \]</span></p>
+</div>
+<div id="competition" class="section level3">
+<h3><code>competition()</code></h3>
+<p>A simple two species competition model, used in Ecology, is given by</p>
+<p><span class="math display">\[ \frac{dx}{dt} = r_1 x\left(\frac{K_1-x-\alpha_{12} y}{K_1} \right),\      \frac{dy}{dt} = r_2 y\left(\frac{K_2-y-\alpha_{21} x}{K_2} \right). \]</span></p>
+</div>
+<div id="toggle" class="section level3">
+<h3><code>toggle()</code></h3>
+<p>A simple model for a genetic toggle switch is given by:</p>
+<p><span class="math display">\[ \frac{dx}{dt} = -x+\frac{\alpha}{1+y^\beta},\ \frac{dy}{dt} = -y+\frac{\alpha}{1+x^\gamma}. \]</span></p>
+</div>
+<div id="morrislecar" class="section level3">
+<h3><code>morrisLecar()</code></h3>
+<p>The Morris-Lecar model is a biological neuron model developed to reproduce the variety of oscialltory behaviour in relation to <span class="math inline">\(C_a^{++}\)</span> and <span class="math inline">\(K+\)</span> conductance in the giant barnacle muscle fiber. It is given by</p>
+<p><span class="math display">\[ \begin{align*} \frac{dx}{dt} &amp;= \frac{1}{20}\left[90 - 0.5g_{C_a}\left\{1+\tanh\left(\frac{x+1.2}{18}\right)\right\}(x-120) - 8y(x+84) - 2(x+60)\right],\\ \frac{dy}{dt} &amp;= \phi\left[0.5\left\{1+\tanh\left(\frac{x-2}{30}\right)\right\}-y\right]\cosh\left(\frac{x-2}{60}\right). \end{align*} \]</span></p>
+</div>
+</div>
+<div id="exercises" class="section level2">
+<h2>Exercises</h2>
+<p>Finally, this section contains numerous exercises that can be undertaken by the user to practice phase plane analysis themselves, both by hand and/or with help from <strong>phaseR</strong>. As such, parts of each exercise can be chosen so as to practice either performing the analysis yourself or computationally.</p>
+<div id="exercise-1" class="section level3">
+<h3>Exercise 1</h3>
+<p>Reproduce the plots and stability analysis of <code>example1()</code> given in this guide using the programs available in <strong>phaseR</strong>.</p>
+</div>
+<div id="exercise-2" class="section level3">
+<h3>Exercise 2</h3>
+<p>In Biology, the exponential growth model is used, for example, to model the growth or decline of a population. Qualitatively analyse it using the function <code>exponential()</code>. Restrict attention to the case <span class="math inline">\(y(0)&gt;0\)</span> and take <span class="math inline">\(\beta=1\)</span>. Where is the equilibrium point? What happens as you change the sign of <span class="math inline">\(\beta\)</span>? What conclusions can we draw in general about this model? How does the sign of <span class="math inline">\(\beta\)</span> reflect the biological system we may be modelling? Perform the analysis both yourself, and provide code for checking your results using <strong>phaseR</strong>.</p>
+</div>
+<div id="exercise-3" class="section level3">
+<h3>Exercise 3</h3>
+<p>The monomolecular growth model assumes that the rate of change of a function, is proportional to the difference between its current value and some hypothetical value <span class="math inline">\(K\)</span>, i.e.</p>
+<p><span class="math display">\[ \frac{dy}{dt} = \beta(K-y). \]</span></p>
+<p>Qualitatively analyse this model using the derivative function monomolecular. Restrict attention to the case <span class="math inline">\(y(0)&gt;0\)</span>, and begin with the values <span class="math inline">\(\beta=1\)</span>, <span class="math inline">\(K=3\)</span>. Where is the equilibrium point? What happens when you change the sign of <span class="math inline">\(\beta\)</span>? How does the sign of <span class="math inline">\(\beta\)</span> reflect the biological system we may be modelling? Perform the analysis both yourself, and provide code for checking your results using <strong>phaseR</strong>.</p>
+</div>
+<div id="exercise-4" class="section level3">
+<h3>Exercise 4</h3>
+<p>von Bertalanffy assumed that an organism would gain material by anabolic processes, proportional to surface area. In addition, material would be lost by catabolic processes, proportional to weight. Since weight is related to surface area by a 2/3 power, his ODE for rate of change of weight <span class="math inline">\(y\)</span> therefore was</p>
+<p><span class="math display">\[ \frac{dy}{dt} = \alpha y^{2/3} - \beta y. \]</span></p>
+<p>Qualitatively analyse this model using the derivative function <code>vonBertanalffy()</code>. Restrict attention to the case <span class="math inline">\(y(0)&gt;0\)</span>, and begin with the values <span class="math inline">\(\alpha=2\)</span>, <span class="math inline">\(\beta=1\)</span>. Where are the equilibrium points? Are they stable? Perform the analysis both yourself, and provide code for checking your results using <strong>phaseR</strong>.</p>
+</div>
+<div id="exercise-5" class="section level3">
+<h3>Exercise 5</h3>
+<p>Create your own derivative function, as explained earlier, for the ODE given by:</p>
+<p><span class="math display">\[ \frac{dy}{dt} = \sin(y). \]</span></p>
+<p>Focusing on the range <span class="math inline">\(y\in[-2\pi,2\pi]\)</span>, perform a qualitative analysis yourself and provide code for checking your results using <strong>phaseR</strong>. Specifically, identify the location of the equilibria and classify them.</p>
+</div>
+<div id="exercise-6" class="section level3">
+<h3>Exercise 6</h3>
+<p>Repeat the example analysis Lotka-Volterra analysis from this guide, using the <code>lotkaVolterra()</code> function and the parameter values <span class="math inline">\(\lambda=\epsilon=\delta=\eta=1\)</span>, using the programs available in <strong>phaseR</strong>.</p>
+</div>
+<div id="exercise-7" class="section level3">
+<h3>Exercise 7</h3>
+<p>For each of the following linear two dimensional systems, perform a phase plane analysis. Ensure to identify and plot the nullclines, and then plot the velocity field. From this add trajectories for several initial conditions. Then locate the equilibrium point(s) and determine their classification. Perform this analysis first by hand and then also provide code to check your results using <strong>phaseR</strong>.</p>
+<ul>
+<li><code>example3()</code>.</li>
+<li><code>example6()</code>.</li>
+<li><code>example7()</code>.</li>
+<li><code>example9()</code>.</li>
+</ul>
+</div>
+<div id="exercise-8" class="section level3">
+<h3>Exercise 8</h3>
+<p>For each of the following non-linear two dimensional systems, perform a phase plane analysis. Ensure to identify and plot the nullclines, and then plot the velocity field. From this add trajectories for several initial conditions. Then locate the equilibrium point(s) and determine their classification. Perform this analysis first by hand and then also provide code to check your results using <strong>phaseR</strong>.</p>
+<ul>
+<li><code>example10()</code>.</li>
+<li><code>example13()</code>.</li>
+<li><code>example14()</code>.</li>
+<li><code>example15()</code>.</li>
+<li><code>example16()</code>.</li>
+</ul>
+</div>
+<div id="exercise-9" class="section level3">
+<h3>Exercise 9</h3>
+<p>Create your own derivative function, as explained earlier, for the ODE system given by:</p>
+<p><span class="math display">\[ \frac{dx}{dt} = 6x-3y, \ \frac{dy}{dt} = 2x-y. \]</span></p>
+<p>Then perform a phase plane analysis; identifying and plotting nullclines, the velocity field, trajectories, and locating the equilibrium point and classifying it. Perform this analysis first by hand and then also provide code to check your results using <strong>phaseR</strong>.</p>
+</div>
+<div id="exercise-10" class="section level3">
+<h3>Exercise 10</h3>
+<p>Create your own derivative function, as explained earlier, for the ODE system given by:</p>
+<p><span class="math display">\[ \frac{dx}{dt} = x^2+y^2-13,\ \frac{dy}{dt} = xy-2x-2y+4. \]</span></p>
+<p>Then perform a phase plane analysis; identifying and plotting nullclines, the velocity field, trajectories, and locating the equilibria and classifying them. Perform this analysis first by hand and also provide code to check your results using <strong>phaseR</strong>.</p>
+</div>
+<div id="exercise-11" class="section level3">
+<h3>Exercise 11</h3>
+<p>Perform a phase plane analysis of the Lindemann Mechanism first by hand and then using the function <code>lindemannMechanism()</code> in <strong>phaseR</strong>. Where is the equilibrium point? Is it stable? How does thing depend on the value of the parameter α?</p>
+</div>
+<div id="exercise-12" class="section level3">
+<h3>Exercise 12</h3>
+<p>Perform a phase plane analysis of the SIR epidemic model first by hand and then using the function <code>SIR()</code> in <strong>phaseR</strong>. Where are the equilibrium points and what is there stability? What does this mean biologically?</p>
+</div>
+<div id="exercise-13" class="section level3">
+<h3>Exercise 13</h3>
+<p>Perform a phase plane analysis of the Lotka Volterra model first by hand and then using the function <code>lotkaVolterra()</code> in <strong>phaseR</strong>. Restrict your attention to the case where all four parameters are positive. Where are the equilibrium points? Are they stable? What does this mean biologically?</p>
+</div>
+<div id="exercise-14" class="section level3">
+<h3>Exercise 14</h3>
+<p>Perform a phase plane analysis of the Species Competition model first by hand and then using the function <code>competition()</code> in <strong>phaseR</strong>. Restrict your attention to the case where all four parameters are positive. Identify the four possible cases depending upon the parameter values. Where are the equilibrium points? Are they stable? What does this mean biologically?</p>
+</div>
+<div id="exercise-15" class="section level3">
+<h3>Exercise 15</h3>
+<p>Perform a phase plane analysis of the Genetic Toggle Switch model first by hand and then using the function <code>toggle()</code> in <strong>phaseR</strong>. Restrict your attention to the case where all three parameters are positive. Where are the equilibrium points? Are they stable? What does this mean biologically?</p>
+</div>
+<div id="exercise-16" class="section level3">
+<h3>Exercise 16</h3>
+<p>Perform a phase plane analysis of the Morris-Lecar model using the function <code>morrisLecar()</code> in <strong>phaseR</strong>. Restrict your attention to the case where the two parameters are positive. Where are the equilibrium points? Are they stable? What does this mean biologically?</p>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
