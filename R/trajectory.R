@@ -49,6 +49,8 @@
 #' plot. If \code{FALSE}, a new plot is created. Defaults to \code{TRUE}.
 #' @param \dots Additional arguments to be passed to plot.
 #' @inheritParams .paramDummy
+#' @param method Passed to \code{\link[deSolve]{ode}}. See there for further
+#' details. Defaults to \code{"ode45"}.
 #' @return Returns a list with the following components (the exact make up is
 #' dependent on the value of \code{system}):
 #' \item{add}{As per input.}
@@ -57,6 +59,7 @@
 #' \code{\link[base]{length}} was supplied.}
 #' \item{deriv}{As per input.}
 #' \item{n}{As per input.}
+#' \item{method}{As per input.}
 #' \item{parameters}{As per input.}
 #' \item{system}{As per input.}
 #' \item{tlim}{As per input.}
@@ -123,7 +126,8 @@ trajectory <- function(deriv, y0 = NULL, n = NULL, tlim, tstep = 0.01,
                        parameters = NULL, system = "two.dim", col = "black",
                        add = TRUE,
                        state.names =
-                         if (system == "two.dim") c("x", "y") else "y", ...) {
+                         if (system == "two.dim") c("x", "y") else "y",
+                       method = "ode45", ...) {
   if (tstep == 0) {
     stop("tstep is equal to 0")
   }
@@ -206,7 +210,6 @@ trajectory <- function(deriv, y0 = NULL, n = NULL, tlim, tstep = 0.01,
   if (system == "two.dim") {
     y                <- x
   }
-  method             <- ifelse(tstep > 0, "ode45", "lsoda")
   for (i in 1:nrow(y0)) {
     phase.trajectory <- deSolve::ode(times  = t,
                                      y      = stats::setNames(c(y0[i, ]),
@@ -237,6 +240,7 @@ trajectory <- function(deriv, y0 = NULL, n = NULL, tlim, tstep = 0.01,
     return(list(add        = add,
                 col        = col,
                 deriv      = deriv,
+                method     = method,
                 n          = n,
                 parameters = parameters,
                 system     = system,
@@ -251,6 +255,7 @@ trajectory <- function(deriv, y0 = NULL, n = NULL, tlim, tstep = 0.01,
                 col        = col,
                 deriv      = deriv,
                 n          = n,
+                method     = method,
                 parameters = parameters,
                 system     = system,
                 t          = t,

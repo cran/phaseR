@@ -7,10 +7,10 @@
 systems*
 
 [![](https://www.r-pkg.org/badges/version/phaseR?color=green)](https://cran.r-project.org/package=phaseR)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/phaseR?color=green)](https://cran.r-project.org/package=phaseR)
-[![](http://cranlogs.r-pkg.org/badges/last-month/phaseR?color=green)](https://cran.r-project.org/package=phaseR)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/phaseR)](https://cran.r-project.org/package=phaseR)
+[![](http://cranlogs.r-pkg.org/badges/last-month/phaseR)](https://cran.r-project.org/package=phaseR)
 [![](https://img.shields.io/badge/doi-10.32614/RJ--2014--023-green.svg)](https://doi.org/10.32614/RJ-2014-023)
-[![](https://img.shields.io/badge/devel%20version-2.1.1-blue.svg)](https://github.com/mjg211/phaseR)
+[![](https://img.shields.io/badge/devel%20version-2.2.1-blue.svg)](https://github.com/mjg211/phaseR)
 [![](https://img.shields.io/github/languages/code-size/mjg211/phaseR.svg)](https://github.com/mjg211/phaseR)
 ![](https://img.shields.io/badge/contributions-welcome-blue.svg)
 
@@ -44,9 +44,11 @@ devtools::install_github("mjg211/phaseR")
 
 An introductory example of how to make use of the package’s core
 functionality can be found below. More detailed support is available in
-the package vignette, which can be accessed with `vignette("phaseR")`.
-For further help, please contact Michael Grayling at
-<michael.grayling@newcastle.ac.uk>.
+the package vignette, which can be accessed with
+`vignette("introduction", package = "phaseR")`. For further help, please
+contact [Michael
+Grayling](https://www.newcastle-biostatistics.com/staff/michael_grayling/)
+at <michael.grayling@newcastle.ac.uk>.
 
 ## Example
 
@@ -95,6 +97,6 @@ example12_stability_2 <- stability(example12,
 
 ## References
 
-Grayling MJ (2014) [phaseR: An R Package for Phase Plane Analysis of
-Autonomous ODE Systems](https://doi.org/10.32614/RJ-2014-023). *The R
-Journal* 6(2):43-51. DOI: 10.32614/RJ-2014-023.
+Grayling MJ (2014) phaseR: An R package for phase plane analysis of
+autonomous ODE systems. *The R Journal* 6(2):43-51. DOI:
+[10.32614/RJ-2014-023](https://doi.org/10.32614/RJ-2014-023).

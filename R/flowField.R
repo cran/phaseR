@@ -179,31 +179,32 @@ flowField <- function(deriv, xlim, ylim, parameters = NULL, system = "two.dim",
   if (!is.logical(add)) {
     stop("add must be logical")
   }
-  x                   <- seq(from = xlim[1], to = xlim[2], length = points)
-  y                   <- seq(from = ylim[1], to = ylim[2], length = points)
-  dx                  <- dy <- matrix(0, ncol = points, nrow = points)
-  xmax.length         <- x[2] - x[1]
-  ymax.length         <- y[2] - y[1]
+  x <- seq(from = xlim[1], to = xlim[2], length = points)
+  y <- seq(from = ylim[1], to = ylim[2], length = points)
+  dx <- dy <- matrix(0, ncol = points, nrow = points)
+  xmax.length <- x[2] - x[1]
+  ymax.length <- y[2] - y[1]
   if (!add) {
     graphics::plot(1, xlim = c(xlim[1] - xmax.length, xlim[2] + xmax.length),
-	                 ylim = c(ylim[1] - ymax.length, ylim[2] + ymax.length),
-		               type = "n", xlab = xlab, ylab = ylab, ...)
+                   ylim = c(ylim[1] - ymax.length, ylim[2] + ymax.length),
+                   type = "n", xlab = xlab, ylab = ylab, ...)
   }
   if (system == "one.dim") {
     for (i in 1:points) {
-      dy[1, i]        <- deriv(0, stats::setNames(c(y[i]), state.names),
-                               parameters)[[1]]
+      dy[1, i] <- deriv(0, stats::setNames(c(y[i]), state.names), parameters)[[1]]
     }
     for (i in 2:points) {
-      dy[i, ]         <- dy[1, ]
+      dy[i, ] <- dy[1, ]
     }
-    abs.dy            <- abs(dy)
-    abs.dy.non        <- abs.dy[which(abs.dy != 0)]
-    max.abs.dy        <- max(abs(dy))
-    coefficient       <-
-      frac*min(xmax.length, ymax.length)/
-        (2*sqrt(2)*max(sqrt(2*abs.dy.non/(abs.dy.non + (1/abs.dy.non))),
-					             sqrt(2*(1/abs.dy.non)/(abs.dy.non + (1/abs.dy.non)))))
+    abs.dy <- abs(dy)
+    abs.dy.non <- abs.dy[which(abs.dy != 0)]
+    max.abs.dy <- max(abs(dy))
+    coefficient <- frac * min(xmax.length, ymax.length) /
+      (2 * sqrt(2) * max(
+        sqrt(2 * abs.dy.non / (abs.dy.non + (1 / abs.dy.non))),
+        sqrt(2 * (1 / abs.dy.non) / (abs.dy.non + (1 / abs.dy.non)))
+      ))
+
     for (i in 1:points) {
       for (j in 1:points) {
         if (dy[i, j] != 0) {
@@ -262,12 +263,12 @@ flowField <- function(deriv, xlim, ylim, parameters = NULL, system = "two.dim",
     max.length        <- max(sqrt(dx^2 + dy^2))
     coefficient       <-
       frac*min(xmax.length, ymax.length)/
-        (2*sqrt(2)*max(sqrt(2*(abs.dy.non/abs.dx.non)/
-                              ((abs.dy.non/abs.dx.non) +
-                                 (abs.dx.non/abs.dy.non))),
-                       sqrt(2*(abs.dx.non/abs.dy.non)/
-                              ((abs.dy.non/abs.dx.non) +
-                                 (abs.dx.non/abs.dy.non)))))
+      (2*sqrt(2)*max(sqrt(2*(abs.dy.non/abs.dx.non)/
+                            ((abs.dy.non/abs.dx.non) +
+                               (abs.dx.non/abs.dy.non))),
+                     sqrt(2*(abs.dx.non/abs.dy.non)/
+                            ((abs.dy.non/abs.dx.non) +
+                               (abs.dx.non/abs.dy.non)))))
     for (i in 1:points) {
       for (j in 1:points) {
         if (any(dx[i, j] != 0, dy[i, j] != 0)) {
